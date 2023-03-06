@@ -11,7 +11,8 @@
     "module": "commonJS",
     "lib": ["es6", "dom"],
     "target": "ES5",
-    "jsx": "react"
+    "jsx": "react",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "exclude": ["node_modules", "dist"]
 }
