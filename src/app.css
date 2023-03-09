@@ -1,3 +1,9 @@
+body {
+    background: #e2e2e2;
+}
+
 .app {
     font-family: Helvetica, Arial, sans-serif;
+    text-align: center;
+    padding: 5rem;
 }

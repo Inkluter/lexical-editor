@@ -1,19 +1,19 @@
-import { $getRoot, $getSelection } from "lexical";
+import { $getRoot, $getSelection, EditorState } from "lexical";
 import React, { useEffect } from "react";
 
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
-import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 
-const theme = {};
+import EditorContainer from "./components/EditorContainer";
+import EditorToolbar from "./components/EditorToolbar/EditorToolbar";
+import { theme } from "./theme/theme";
+import "./editor.css";
 
 // When the editor changes, you can get notified via the
 // LexicalOnChangePlugin!
-function onChange(editorState) {
+function onChange(editorState: EditorState) {
   editorState.read(() => {
     // Read the contents of the EditorState here.
     const root = $getRoot();
@@ -27,7 +27,7 @@ function onChange(editorState) {
 // highly composable. Furthermore, you can lazy load plugins if
 // desired, so you don't pay the cost for plugins until you
 // actually use them.
-function MyCustomAutoFocusPlugin() {
+function MyCustomAutoFocusPlugin(): null {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function MyCustomAutoFocusPlugin() {
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
 // try to recover gracefully without losing user data.
-function onError(error) {
+function onError(error: Error) {
   console.error(error);
 }
 
@@ -53,16 +53,15 @@ function Editor() {
   };
 
   return (
-    <LexicalComposer initialConfig={initialConfig}>
-      <PlainTextPlugin
-        contentEditable={<ContentEditable />}
-        placeholder={<div>Enter some text...</div>}
-        ErrorBoundary={LexicalErrorBoundary}
-      />
-      <OnChangePlugin onChange={onChange} />
-      <HistoryPlugin />
-      <MyCustomAutoFocusPlugin />
-    </LexicalComposer>
+    <div className="le-wrapper">
+      <LexicalComposer initialConfig={initialConfig}>
+        <EditorToolbar />
+        <EditorContainer />
+        <OnChangePlugin onChange={onChange} />
+        <HistoryPlugin />
+        <MyCustomAutoFocusPlugin />
+      </LexicalComposer>
+    </div>
   );
 }
 

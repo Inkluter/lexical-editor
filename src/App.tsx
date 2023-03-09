@@ -1,10 +1,10 @@
 import React from "react";
 import Editor from "./Editor/Editor";
-import styles from "./app.css";
+import "./app.css";
 
 const App = () => {
   return (
-    <div className={styles.app}>
+    <div className="app">
       <h1>Editor playground</h1>
       <Editor />
     </div>

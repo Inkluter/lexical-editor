@@ -1,0 +1,31 @@
+.le-wrapper {
+    background: #fff;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.le-container {
+    position: relative;
+}
+
+.le-content {
+    height: 300px;
+    position: relative;
+    text-align: left;
+    padding: .5rem 1rem;
+}
+
+.le-content:focus-visible {
+    outline: none;
+}
+
+.le-placeholder {
+    position: absolute;
+    left: 1.5rem;
+    top: 1.5rem;
+}
+
+/* toolbar */
+.le-toolbar {
+    padding: 1rem;
+}
