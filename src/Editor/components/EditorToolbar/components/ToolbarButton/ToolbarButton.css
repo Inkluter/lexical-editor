@@ -5,6 +5,10 @@
     margin: 0 4px;
     background: none;
     border: 0 none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+
 }
 
 .toolbar_button:hover {
