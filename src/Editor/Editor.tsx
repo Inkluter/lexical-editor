@@ -1,15 +1,14 @@
-import { $getRoot, $getSelection, EditorState } from "lexical";
-import React, { useEffect } from "react";
+import { $getRoot, $getSelection, EditorState } from 'lexical';
+import React, { useEffect } from 'react';
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-
-import EditorContainer from "./components/EditorContainer";
-import EditorToolbar from "./components/EditorToolbar/EditorToolbar";
-import { theme } from "./theme/theme";
-import "./editor.css";
+import EditorContainer from './components/EditorContainer/EditorContainer';
+import EditorToolbar from './components/EditorToolbar/EditorToolbar';
+import { theme } from './theme/theme';
+import styles from './Editor.css';
 
 // When the editor changes, you can get notified via the
 // LexicalOnChangePlugin!
@@ -47,13 +46,13 @@ function onError(error: Error) {
 
 function Editor() {
   const initialConfig = {
-    namespace: "MyEditor",
+    namespace: 'MyEditor',
     theme,
     onError,
   };
 
   return (
-    <div className="le-wrapper">
+    <div className={styles.wrapper}>
       <LexicalComposer initialConfig={initialConfig}>
         <EditorToolbar />
         <EditorContainer />

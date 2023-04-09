@@ -1,11 +1,9 @@
-import React from "react";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { FORMAT_TEXT_COMMAND } from "lexical";
-
-import { ToolbarItem } from "../../constants/enums";
+import React from 'react';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { FORMAT_TEXT_COMMAND, TextFormatType } from 'lexical';
 
 interface ToolbarItemType {
-  toolbarItem: ToolbarItem;
+  toolbarItem: string;
 }
 
 const ToolbarButton = ({ toolbarItem }: ToolbarItemType) => {
@@ -14,7 +12,10 @@ const ToolbarButton = ({ toolbarItem }: ToolbarItemType) => {
   return (
     <button
       onClick={() => {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, toolbarItem);
+        editor.dispatchCommand(
+          FORMAT_TEXT_COMMAND,
+          toolbarItem as TextFormatType
+        );
         console.log(toolbarItem);
       }}
     >

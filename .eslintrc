@@ -18,10 +18,34 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "import"
     ],
     "rules": {
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "prettier/prettier": [
+            "warn",
+            {
+              "arrowParens": "always",
+              "semi": true,
+              "useTabs": false,
+              "tabWidth": 2,
+              "bracketSpacing": true,
+              "singleQuote": true
+            }
+          ],
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    ["index", "sibling", "parent", "object"]
+                ],
+                "newlines-between": "always"
+            }
+        ]
     },
     "settings": {
         "react": {
