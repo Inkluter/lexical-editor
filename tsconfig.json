@@ -12,7 +12,11 @@
     "lib": ["es6", "dom"],
     "target": "ES5",
     "jsx": "react",
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"],
+    }
   },
   "exclude": ["node_modules", "dist"]
 }

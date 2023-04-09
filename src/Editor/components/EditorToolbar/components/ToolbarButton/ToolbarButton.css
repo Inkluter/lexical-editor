@@ -1,0 +1,12 @@
+@import 'src/Editor/root.css';
+
+.toolbar_button {
+    display: inline-block;
+    margin: 0 4px;
+    background: none;
+    border: 0 none;
+}
+
+.toolbar_button:hover {
+    background-color: var(--color-button-hover);
+}

@@ -5,5 +5,18 @@
     ["@babel/preset-react", {
       "runtime": "automatic"
     }]
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "extensions": [".ts", ".tsx", ".css"],
+        "root": ["./src"],
+        "alias": {
+          "root": ".",
+          "src": "/src"
+        }
+      }
+    ]
   ]
 }

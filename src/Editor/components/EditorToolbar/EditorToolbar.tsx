@@ -1,11 +1,12 @@
 import React from 'react';
+import { DEFAULT_CONFIG } from 'src/Editor/constants/editorConfig';
 
-import ToolbarButton from './ToolbarButton';
+import ToolbarButton from './components/ToolbarButton/ToolbarButton';
 // import { EditorDropdown } from './EditorDropdown/EditorDropdown';
-import {
-  DEFAULT_CONFIG,
-  // FONT_SIZE_OPTIONS,
-} from '../../constants/editorConfig';
+// import {
+//   DEFAULT_CONFIG,
+//   // FONT_SIZE_OPTIONS,
+// } from '../../constants/editorConfig';
 import styles from './EditorToolbar.css';
 
 const EditorToolbar = () => {
