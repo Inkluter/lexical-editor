@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { DEFAULT_CONFIG } from 'src/Editor/constants/editorConfig';
-import { $getSelection } from 'lexical';
+import { $getSelection, $isRangeSelection, TextFormatType } from 'lexical';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { mergeRegister } from '@lexical/utils';
 import { ACTIVE_FORMATS } from 'src/Editor/constants/objects';
@@ -21,14 +21,15 @@ const EditorToolbar = () => {
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
-
-    Object.keys(ACTIVE_FORMATS).forEach((format) => {
-      if (selection.hasFormat(format)) {
-        setActiveFormats((prev) => ({ ...prev, [format]: true }));
-      } else {
-        setActiveFormats((prev) => ({ ...prev, [format]: false }));
-      }
-    });
+    if ($isRangeSelection(selection)) {
+      Object.keys(ACTIVE_FORMATS).forEach((format) => {
+        if (selection.hasFormat(format as TextFormatType)) {
+          setActiveFormats((prev) => ({ ...prev, [format]: true }));
+        } else {
+          setActiveFormats((prev) => ({ ...prev, [format]: false }));
+        }
+      });
+    }
   }, [editor]);
 
   useEffect(() => {
