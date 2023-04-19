@@ -8,6 +8,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import EditorContainer from './components/EditorContainer/EditorContainer';
 import EditorToolbar from './components/EditorToolbar/EditorToolbar';
 import { theme } from './theme/theme';
+import './theme/theme.css';
 import styles from './Editor.css';
 
 // When the editor changes, you can get notified via the
@@ -18,7 +19,7 @@ function onChange(editorState: EditorState) {
     const root = $getRoot();
     const selection = $getSelection();
 
-    console.log(root, selection);
+    // console.log(root, selection);
   });
 }
 

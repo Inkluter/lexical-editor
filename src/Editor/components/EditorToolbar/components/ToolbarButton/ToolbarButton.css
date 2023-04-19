@@ -14,3 +14,7 @@
 .toolbar_button:hover {
     background-color: var(--color-button-hover);
 }
+
+.toolbar_button__active {
+    background-color: var(--color-button-active);
+}

@@ -1,26 +1,26 @@
-.lexicalEditorTheme__textBold {
+:global(.lexicalEditorTheme__textBold) {
     font-weight: bold;
 }
-.lexicalEditorTheme__textItalic {
+:global(.lexicalEditorTheme__textItalic) {
     font-style: italic;
 }
-.lexicalEditorTheme__textUnderline {
+:global(.lexicalEditorTheme__textUnderline) {
     text-decoration: underline;
 }
-.lexicalEditorTheme__textStrikethrough {
+:global(.lexicalEditorTheme__textStrikethrough) {
     text-decoration: line-through;
 }
-.lexicalEditorTheme__textSubscript {
+:global(.lexicalEditorTheme__textSubscript) {
     font-size: 0.8em;
     vertical-align: sub !important;
 }
-.lexicalEditorTheme__textSuperscript {
+:global(.lexicalEditorTheme__textSuperscript) {
     font-size: 0.8em;
     vertical-align: super;
 }
-.lexicalEditorTheme__textUnderline {
+:global(.lexicalEditorTheme__textUnderline) {
     text-decoration: underline;
 }
-.lexicalEditorTheme__textUnderlineStrikethrough {
+:global(.lexicalEditorTheme__textUnderlineStrikethrough) {
     text-decoration: underline line-through;
 }

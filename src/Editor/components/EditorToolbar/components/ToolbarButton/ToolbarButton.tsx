@@ -2,11 +2,13 @@ import React from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { FORMAT_TEXT_COMMAND, TextFormatType } from 'lexical';
 import { ToolbarItem } from 'src/Editor/constants/enums';
+import classNames from 'classnames';
 
 import styles from './ToolbarButton.css';
 
 interface ToolbarItemType {
   toolbarItem: string;
+  active: boolean;
 }
 
 const Bold = () => <span style={{ fontWeight: 'bold' }}>B</span>;
@@ -43,14 +45,17 @@ const Label = {
   [ToolbarItem.Subscript]: Subscript,
 };
 
-const ToolbarButton = ({ toolbarItem }: ToolbarItemType) => {
+const ToolbarButton = ({ toolbarItem, active }: ToolbarItemType) => {
   const [editor] = useLexicalComposerContext();
 
   const ButtonLabel = Label[toolbarItem as ToolbarItem];
 
   return (
     <button
-      className={styles.toolbar_button}
+      className={classNames(
+        styles.toolbar_button,
+        active && styles.toolbar_button__active
+      )}
       onClick={() => {
         editor.dispatchCommand(
           FORMAT_TEXT_COMMAND,
