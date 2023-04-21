@@ -1,26 +1,28 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { DEFAULT_CONFIG } from 'src/Editor/constants/editorConfig';
+import {
+  DEFAULT_CONFIG,
+  FONT_SIZE_OPTIONS,
+} from 'src/Editor/constants/editorConfig';
 import { $getSelection, $isRangeSelection, TextFormatType } from 'lexical';
+import { $getSelectionStyleValueForProperty } from '@lexical/selection';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { mergeRegister } from '@lexical/utils';
 import { ACTIVE_FORMATS } from 'src/Editor/constants/objects';
 import { ACTIVE_FORMATS_TYPE } from 'src/Editor/constants/models';
 
 import ToolbarButton from './components/ToolbarButton/ToolbarButton';
-// import { EditorDropdown } from './EditorDropdown/EditorDropdown';
-// import {
-//   DEFAULT_CONFIG,
-//   // FONT_SIZE_OPTIONS,
-// } from '../../constants/editorConfig';
+import { EditorDropdown } from './EditorDropdown/EditorDropdown';
 import styles from './EditorToolbar.css';
 
 const EditorToolbar = () => {
   const [editor] = useLexicalComposerContext();
   const [activeFormats, setActiveFormats] =
     useState<ACTIVE_FORMATS_TYPE>(ACTIVE_FORMATS);
+  const [fontSize, setFontSize] = useState('15px');
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
+
     if ($isRangeSelection(selection)) {
       Object.keys(ACTIVE_FORMATS).forEach((format) => {
         if (selection.hasFormat(format as TextFormatType)) {
@@ -29,6 +31,9 @@ const EditorToolbar = () => {
           setActiveFormats((prev) => ({ ...prev, [format]: false }));
         }
       });
+      setFontSize(
+        $getSelectionStyleValueForProperty(selection, 'font-size', '15px')
+      );
     }
   }, [editor]);
 
@@ -51,11 +56,11 @@ const EditorToolbar = () => {
           active={activeFormats[toolbarItem as keyof ACTIVE_FORMATS_TYPE]}
         />
       ))}
-      {/*<EditorDropdown*/}
-      {/*  name="Font size"*/}
-      {/*  options={FONT_SIZE_OPTIONS}*/}
-      {/*  onChange={(option) => console.log(option)}*/}
-      {/*/>*/}
+      <EditorDropdown
+        name="Font size"
+        options={FONT_SIZE_OPTIONS}
+        style="font-size"
+      />
     </div>
   );
 };
