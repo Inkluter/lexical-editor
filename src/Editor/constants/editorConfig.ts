@@ -7,7 +7,7 @@ export const DEFAULT_CONFIG = [
   'subscript',
 ];
 
-export const FONT_SIZE_OPTIONS = [
+export const DEFAULT_FONT_SIZE_OPTIONS = [
   { label: '8', value: '8px' },
   { label: '9', value: '9px' },
   { label: '10', value: '10px' },
@@ -28,4 +28,12 @@ export const FONT_SIZE_OPTIONS = [
   { label: '72', value: '72px' },
   { label: '80', value: '80px' },
   { label: '96', value: '96px' },
+];
+
+export const DEFAULT_FONT_FAMILY_OPTIONS = [
+  { label: 'Arial', value: 'Arial' },
+  { label: 'Verdana', value: 'Verdana' },
+  { label: 'Courier New', value: 'Courier New' },
+  { label: 'Georgia', value: 'Georgia' },
+  { label: 'Impact', value: 'Impact' },
 ];

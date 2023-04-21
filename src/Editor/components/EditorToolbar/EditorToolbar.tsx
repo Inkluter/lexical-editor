@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  DEFAULT_CONFIG,
-  FONT_SIZE_OPTIONS,
+  DEFAULT_CONFIG, DEFAULT_FONT_FAMILY_OPTIONS,
+  DEFAULT_FONT_SIZE_OPTIONS,
 } from 'src/Editor/constants/editorConfig';
 import { $getSelection, $isRangeSelection, TextFormatType } from 'lexical';
 import { $getSelectionStyleValueForProperty } from '@lexical/selection';
@@ -58,8 +58,13 @@ const EditorToolbar = () => {
       ))}
       <EditorDropdown
         name="Font size"
-        options={FONT_SIZE_OPTIONS}
+        options={DEFAULT_FONT_SIZE_OPTIONS}
         style="font-size"
+      />
+      <EditorDropdown
+        name="Font family"
+        options={DEFAULT_FONT_FAMILY_OPTIONS}
+        style="font-family"
       />
     </div>
   );
