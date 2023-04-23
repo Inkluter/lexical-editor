@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  DEFAULT_CONFIG, DEFAULT_FONT_FAMILY_OPTIONS,
+  DEFAULT_CONFIG,
+  DEFAULT_FONT_FAMILY_OPTIONS,
   DEFAULT_FONT_SIZE_OPTIONS,
 } from 'src/Editor/constants/editorConfig';
 import { $getSelection, $isRangeSelection, TextFormatType } from 'lexical';
@@ -19,6 +20,9 @@ const EditorToolbar = () => {
   const [activeFormats, setActiveFormats] =
     useState<ACTIVE_FORMATS_TYPE>(ACTIVE_FORMATS);
   const [fontSize, setFontSize] = useState('15px');
+  const [fontFamily, setFontFamily] = useState('Arial');
+
+  console.log('fontSize', fontSize);
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -33,6 +37,9 @@ const EditorToolbar = () => {
       });
       setFontSize(
         $getSelectionStyleValueForProperty(selection, 'font-size', '15px')
+      );
+      setFontFamily(
+        $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial')
       );
     }
   }, [editor]);
@@ -60,11 +67,15 @@ const EditorToolbar = () => {
         name="Font size"
         options={DEFAULT_FONT_SIZE_OPTIONS}
         style="font-size"
+        activeValue={fontSize}
+        showValue
       />
       <EditorDropdown
         name="Font family"
         options={DEFAULT_FONT_FAMILY_OPTIONS}
         style="font-family"
+        activeValue={fontFamily}
+        showValue
       />
     </div>
   );

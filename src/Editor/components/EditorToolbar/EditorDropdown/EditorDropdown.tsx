@@ -3,6 +3,7 @@ import { useOnClickOutside } from 'src/Editor/hooks/useOnClickOutside';
 import { $getSelection, $isRangeSelection } from 'lexical';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $patchStyleText } from '@lexical/selection';
+import classNames from 'classnames';
 
 import { Option } from '../../../constants/models';
 import styles from './EditorDropdown.css';
@@ -10,13 +11,17 @@ import styles from './EditorDropdown.css';
 interface EditorDropdownType {
   name: string;
   options: Array<Option>;
+  activeValue: string;
   style?: string;
+  showValue?: boolean;
 }
 
 export const EditorDropdown = ({
   name,
   options,
+  activeValue,
   style,
+  showValue = false,
 }: EditorDropdownType) => {
   const [editor] = useLexicalComposerContext();
   const [isListVisible, setIsListVisible] = useState(false);
@@ -50,13 +55,16 @@ export const EditorDropdown = ({
         onClick={() => setIsListVisible(!isListVisible)}
         className={styles.dropdown_button}
       >
-        {name}
+        {showValue ? activeValue : name}
       </button>
       {isListVisible && (
         <div ref={listRef} className={styles.dropdown_list}>
           {options.map((option) => (
             <div
-              className={styles.dropdown_option}
+              className={classNames(
+                styles.dropdown_option,
+                activeValue === option.value && styles.dropdown_option__active
+              )}
               onClick={() => handleClick(option.value as string)}
               key={option.value}
             >

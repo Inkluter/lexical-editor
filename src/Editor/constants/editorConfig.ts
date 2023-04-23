@@ -13,6 +13,7 @@ export const DEFAULT_FONT_SIZE_OPTIONS = [
   { label: '10', value: '10px' },
   { label: '11', value: '11px' },
   { label: '12', value: '12px' },
+  { label: '15', value: '15px' },
   { label: '14', value: '14px' },
   { label: '16', value: '16px' },
   { label: '18', value: '18px' },
@@ -36,4 +37,10 @@ export const DEFAULT_FONT_FAMILY_OPTIONS = [
   { label: 'Courier New', value: 'Courier New' },
   { label: 'Georgia', value: 'Georgia' },
   { label: 'Impact', value: 'Impact' },
+];
+
+export const DEFAULT_TEXT_ALIGN_OPTIONS = [
+  { label: 'Left', value: 'left' },
+  { label: 'Center', value: 'center' },
+  { label: 'Right', value: 'right' },
 ];

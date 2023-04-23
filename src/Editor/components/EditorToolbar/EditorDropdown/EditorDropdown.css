@@ -37,6 +37,10 @@
     cursor: pointer;
 }
 
+.dropdown_option__active {
+    background-color: var(--color-button-active);
+}
+
 .dropdown_option:hover {
     background-color: var(--color-button-hover);
 }
