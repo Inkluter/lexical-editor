@@ -1,11 +1,4 @@
 import React from 'react';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import {
-  FORMAT_TEXT_COMMAND,
-  FORMAT_ELEMENT_COMMAND,
-  TextFormatType,
-  ElementFormatType,
-} from 'lexical';
 import classNames from 'classnames';
 import { ToolbarItem, AlignItem } from 'src/Editor/constants/enums';
 import { Icon } from 'src/Editor/components/Icons/Icon';
