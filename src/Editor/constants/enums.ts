@@ -6,3 +6,10 @@ export enum ToolbarItem {
   Superscript = 'superscript',
   Subscript = 'subscript',
 }
+
+export enum AlignItem {
+  Left = 'left',
+  Right = 'right',
+  Center = 'center',
+  Justify = 'justify',
+}

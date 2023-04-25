@@ -8,6 +8,7 @@
     padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
+    vertical-align: middle;
 
 }
 
@@ -17,4 +18,13 @@
 
 .toolbar_button__active {
     background-color: var(--color-button-active);
+}
+
+.icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    background-position: center;
 }

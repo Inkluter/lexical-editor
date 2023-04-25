@@ -1,14 +1,21 @@
 import React from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { FORMAT_TEXT_COMMAND, TextFormatType } from 'lexical';
-import { ToolbarItem } from 'src/Editor/constants/enums';
+import {
+  FORMAT_TEXT_COMMAND,
+  FORMAT_ELEMENT_COMMAND,
+  TextFormatType,
+  ElementFormatType,
+} from 'lexical';
 import classNames from 'classnames';
+import { ToolbarItem, AlignItem } from 'src/Editor/constants/enums';
+import { Icon } from 'src/Editor/components/Icons/Icon';
 
 import styles from './ToolbarButton.css';
 
 interface ToolbarItemType {
   toolbarItem: string;
-  active: boolean;
+  active?: boolean;
+  onClick: (command: string) => void;
 }
 
 const Bold = () => <span style={{ fontWeight: 'bold' }}>B</span>;
@@ -35,6 +42,10 @@ const Subscript = () => (
     </span>
   </span>
 );
+const AlignLeftLabel = () => <Icon icon="align-left" />;
+const AlignRightLabel = () => <Icon icon="align-right" />;
+const AlignCenterLabel = () => <Icon icon="align-center" />;
+const AlignJustifyLabel = () => <Icon icon="align-justify" />;
 
 const Label = {
   [ToolbarItem.Bold]: Bold,
@@ -43,11 +54,14 @@ const Label = {
   [ToolbarItem.Strikethrough]: Strikethrough,
   [ToolbarItem.Superscript]: Superscript,
   [ToolbarItem.Subscript]: Subscript,
+  [AlignItem.Left]: AlignLeftLabel,
+  [AlignItem.Right]: AlignRightLabel,
+  [AlignItem.Center]: AlignCenterLabel,
+  [AlignItem.Justify]: AlignJustifyLabel,
+  link: () => <Icon icon="link" />,
 };
 
-const ToolbarButton = ({ toolbarItem, active }: ToolbarItemType) => {
-  const [editor] = useLexicalComposerContext();
-
+const ToolbarButton = ({ toolbarItem, active, onClick }: ToolbarItemType) => {
   const ButtonLabel = Label[toolbarItem as ToolbarItem];
 
   return (
@@ -56,12 +70,7 @@ const ToolbarButton = ({ toolbarItem, active }: ToolbarItemType) => {
         styles.toolbar_button,
         active && styles.toolbar_button__active
       )}
-      onClick={() => {
-        editor.dispatchCommand(
-          FORMAT_TEXT_COMMAND,
-          toolbarItem as TextFormatType
-        );
-      }}
+      onClick={() => onClick(toolbarItem)}
     >
       <ButtonLabel />
     </button>

@@ -3,8 +3,16 @@ import {
   DEFAULT_CONFIG,
   DEFAULT_FONT_FAMILY_OPTIONS,
   DEFAULT_FONT_SIZE_OPTIONS,
+  DEFAULT_TEXT_ALIGN_OPTIONS,
 } from 'src/Editor/constants/editorConfig';
-import { $getSelection, $isRangeSelection, TextFormatType } from 'lexical';
+import {
+  $getSelection,
+  $isRangeSelection,
+  ElementFormatType,
+  FORMAT_ELEMENT_COMMAND,
+  FORMAT_TEXT_COMMAND,
+  TextFormatType,
+} from 'lexical';
 import { $getSelectionStyleValueForProperty } from '@lexical/selection';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { mergeRegister } from '@lexical/utils';
@@ -21,8 +29,7 @@ const EditorToolbar = () => {
     useState<ACTIVE_FORMATS_TYPE>(ACTIVE_FORMATS);
   const [fontSize, setFontSize] = useState('15px');
   const [fontFamily, setFontFamily] = useState('Arial');
-
-  console.log('fontSize', fontSize);
+  const [textAlign, setTextAlign] = useState('');
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -41,6 +48,8 @@ const EditorToolbar = () => {
       setFontFamily(
         $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial')
       );
+      const alignment = selection.anchor.getNode().getParent().getFormatType();
+      setTextAlign(alignment);
     }
   }, [editor]);
 
@@ -54,6 +63,23 @@ const EditorToolbar = () => {
     );
   }, [editor, updateToolbar]);
 
+  const handleFormatTextClick = useCallback(
+    (command: TextFormatType) => {
+      editor.dispatchCommand(FORMAT_TEXT_COMMAND, command);
+    },
+    [editor]
+  );
+
+  const handleFormatElementClick = useCallback(
+    (command: ElementFormatType) => {
+      editor.dispatchCommand(
+        FORMAT_ELEMENT_COMMAND,
+        command as ElementFormatType
+      );
+    },
+    [editor]
+  );
+
   return (
     <div className={styles.toolbar}>
       {DEFAULT_CONFIG.map((toolbarItem) => (
@@ -61,6 +87,7 @@ const EditorToolbar = () => {
           key={toolbarItem}
           toolbarItem={toolbarItem}
           active={activeFormats[toolbarItem as keyof ACTIVE_FORMATS_TYPE]}
+          onClick={handleFormatTextClick}
         />
       ))}
       <EditorDropdown
@@ -77,6 +104,15 @@ const EditorToolbar = () => {
         activeValue={fontFamily}
         showValue
       />
+      {DEFAULT_TEXT_ALIGN_OPTIONS.map((textAlignOption) => (
+        <ToolbarButton
+          key={textAlignOption.value}
+          toolbarItem={textAlignOption.value}
+          onClick={handleFormatElementClick}
+          active={textAlignOption.value === textAlign}
+        />
+      ))}
+      {/*<ToolbarButton toolbarItem={'link'} format="element" />*/}
     </div>
   );
 };
