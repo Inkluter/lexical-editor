@@ -11,14 +11,6 @@ interface ToolbarItemType {
   onClick: (command: string) => void;
 }
 
-const Bold = () => <span style={{ fontWeight: 'bold' }}>B</span>;
-const Italic = () => (
-  <span style={{ fontStyle: 'italic', fontFamily: 'Georgia' }}>I</span>
-);
-const Underline = () => <span style={{ textDecoration: 'underline' }}>U</span>;
-const Strikethrough = () => (
-  <span style={{ textDecoration: 'line-through' }}>S</span>
-);
 const Superscript = () => (
   <span>
     X{' '}
@@ -35,22 +27,18 @@ const Subscript = () => (
     </span>
   </span>
 );
-const AlignLeftLabel = () => <Icon icon="align-left" />;
-const AlignRightLabel = () => <Icon icon="align-right" />;
-const AlignCenterLabel = () => <Icon icon="align-center" />;
-const AlignJustifyLabel = () => <Icon icon="align-justify" />;
 
 const Label = {
-  [ToolbarItem.Bold]: Bold,
-  [ToolbarItem.Italic]: Italic,
-  [ToolbarItem.Underline]: Underline,
-  [ToolbarItem.Strikethrough]: Strikethrough,
+  [ToolbarItem.Bold]: () => <Icon icon="bold" />,
+  [ToolbarItem.Italic]: () => <Icon icon="italic" />,
+  [ToolbarItem.Underline]: () => <Icon icon="underline" />,
+  [ToolbarItem.Strikethrough]: () => <Icon icon="strikethrough" />,
   [ToolbarItem.Superscript]: Superscript,
   [ToolbarItem.Subscript]: Subscript,
-  [AlignItem.Left]: AlignLeftLabel,
-  [AlignItem.Right]: AlignRightLabel,
-  [AlignItem.Center]: AlignCenterLabel,
-  [AlignItem.Justify]: AlignJustifyLabel,
+  [AlignItem.Left]: () => <Icon icon="left" />,
+  [AlignItem.Right]: () => <Icon icon="right" />,
+  [AlignItem.Center]: () => <Icon icon="center" />,
+  [AlignItem.Justify]: () => <Icon icon="justify" />,
   link: () => <Icon icon="link" />,
   'list-ordered': () => <Icon icon="list-ordered" />,
   'list-unordered': () => <Icon icon="list-unordered" />,

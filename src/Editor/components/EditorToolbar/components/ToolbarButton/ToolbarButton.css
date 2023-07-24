@@ -1,23 +1,30 @@
-@import 'src/Editor/root.css';
+@import 'src/Editor/theme/colors.css';
 
 .toolbar_button {
-    display: inline-block;
-    margin: 0 4px;
+    display: inline-flex;
+    margin: 0 2px;
     background: none;
     border: 0 none;
-    padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
-    vertical-align: middle;
-
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 36px;
+    height: 32px;
 }
 
 .toolbar_button:hover {
-    background-color: var(--color-button-hover);
+    background-color: var(--color-hover-grey);
 }
 
 .toolbar_button__active {
-    background-color: var(--color-button-active);
+    background-color: var(--color-active-grey);
+}
+
+.toolbar_button__active:hover {
+    background-color: var(--color-active-grey);
+    border: 1px solid #7D8C94;
 }
 
 .icon {

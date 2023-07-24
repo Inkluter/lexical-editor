@@ -73,39 +73,31 @@ export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
 
   const link = (
     <svg
-      width={width}
-      height={height}
-      viewBox="0 0 22 22"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g id="Interface / Link_Horizontal">
-        <path
-          id="Vector"
-          d="M8 12H16M15 8H17C19.2091 8 21 9.79086 21 12C21 14.2091 19.2091 16 17 16H15M9 8H7C4.79086 8 3 9.79086 3 12C3 14.2091 4.79086 16 7 16H9"
-          stroke="#000000"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </g>
+      <path
+        d="M4.17867 11.9825L11.6744 4.48681M12.1888 8.67557L14.0259 6.8384C15.3247 5.53965 15.3247 3.43397 14.0259 2.13522C12.7272 0.836477 10.6215 0.836477 9.32277 2.13522L7.48559 3.9724M8.51441 12.3499L6.67723 14.1871C5.37849 15.4858 3.2728 15.4858 1.97406 14.1871C0.675314 12.8884 0.675314 10.7827 1.97406 9.48393L3.81124 7.64675"
+        stroke="#2B2E31"
+      />
     </svg>
   );
 
   const listOrdered = (
     <svg
-      fill="#000000"
-      width={width}
-      height={height}
-      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect x="5.77" y="6.42" width="18.06" height="1.75" />
-      <rect x="5.77" y="11.71" width="18.06" height="1.75" />
-      <rect x="5.77" y="16.99" width="18.06" height="1.75" />
-      <path d="M3.13,4.87V8a2,2,0,0,0,0,.45.3.3,0,0,0,.13.16.62.62,0,0,0,.32.06H3.7v.11h-2V8.71h.1a.79.79,0,0,0,.35-.06.29.29,0,0,0,.14-.16A1.75,1.75,0,0,0,2.3,8V6a1.28,1.28,0,0,0,0-.33.24.24,0,0,0-.1-.11.28.28,0,0,0-.16,0,.91.91,0,0,0-.35.09l-.05-.1L3,4.87Z" />
-      <path d="M3.65,14.3H1.37v-.06a12.51,12.51,0,0,0,1.27-1.67,1.81,1.81,0,0,0,.22-.84.7.7,0,0,0-.18-.5.6.6,0,0,0-.45-.2.75.75,0,0,0-.68.44l-.11,0a1.58,1.58,0,0,1,.47-.81,1.09,1.09,0,0,1,.72-.26,1.06,1.06,0,0,1,.54.14,1,1,0,0,1,.38.37.9.9,0,0,1,.14.45,1.6,1.6,0,0,1-.21.77,7.28,7.28,0,0,1-1.25,1.47h.83a1.87,1.87,0,0,0,.4,0,.33.33,0,0,0,.15-.09,1.16,1.16,0,0,0,.16-.26h.1Z" />
-      <path d="M2.09,18v-.1a1.88,1.88,0,0,0,.45-.17.67.67,0,0,0,.22-.25.69.69,0,0,0,.09-.34.55.55,0,0,0-.17-.41.58.58,0,0,0-.43-.17.8.8,0,0,0-.68.42l-.11,0A1.72,1.72,0,0,1,2,16.19a1.16,1.16,0,0,1,.71-.24.93.93,0,0,1,.66.24.76.76,0,0,1,.26.57.78.78,0,0,1-.12.41,1,1,0,0,1-.38.35,1.34,1.34,0,0,1,.51.4,1,1,0,0,1,.17.6,1.38,1.38,0,0,1-.44,1A1.62,1.62,0,0,1,2.2,20a1.24,1.24,0,0,1-.71-.16.34.34,0,0,1-.16-.29.32.32,0,0,1,.31-.32.41.41,0,0,1,.18,0l.32.25a.84.84,0,0,0,.52.23A.47.47,0,0,0,3,19.55a.61.61,0,0,0,.15-.42,1.1,1.1,0,0,0-.27-.72A1.42,1.42,0,0,0,2.09,18Z" />
+      <path
+        d="M5.99998 4H15M5.99998 12H15M5.99998 8H15M2.99998 5.5V2H2.5L1.5 3M2.99998 5.5H1.5M2.99998 5.5H4.5M4.49998 13H1.5C1.5 13 1.77682 12.2232 2.5 11.5C3.22318 10.7768 4 9.5 3 9C2 8.5 1 10 1 10"
+        stroke="#2B2E31"
+      />
     </svg>
   );
 
@@ -147,6 +139,144 @@ export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
     </svg>
   );
 
+  const bold = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 8L7 8C9.20914 8 11 7.20914 11 5C11 2.79086 9.5 2 8 2L5 2C4.44772 2 4 2.44772 4 3L4 7.98578L7 7.98578C11 8 12.5 8.77664 12.5 10.9858C12.5 13.1949 10.7091 14 8.5 14L5 14C4.44772 14 4 13.5523 4 13L4 8Z"
+        stroke="#2B2E31"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
+  const italic = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9 3L7 13M9 3H7M9 3L11 3M7 13H9M7 13H5"
+        stroke="#2B2E31"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
+  const strikethrough = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.5 4.34494C11.2142 3.61887 10.6861 2.98052 9.95116 2.5606C7.58847 1.21067 4.56562 2.39989 4.56767 5.04366C4.56925 7.07499 6.39082 7.42492 8.15689 8.00308M4.5 11.6549C4.78581 12.381 5.31389 13.0193 6.04884 13.4392C8.40908 14.7878 11.4296 13.6036 11.4323 10.9625C11.4327 10.6022 11.3549 10.2836 11.2157 10M8.15689 8.00308H13.5M8.15689 8.00308H2.5"
+        stroke="#2B2E31"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
+  const underline = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 2V8C4 10.2091 5.79086 12 8 12C10.2091 12 12 10.2091 12 8V2M4 14H12"
+        stroke="#2B2E31"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
+  const center = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M1 4H15M2.5 12H13.5M4 8H12" stroke="#2B2E31" />
+    </svg>
+  );
+
+  const left = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M1 4H15M1 12H7.39999M1 8H15" stroke="#2B2E31" />
+    </svg>
+  );
+
+  const right = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M1 4H15M8.60001 12H15M1 8H15" stroke="#2B2E31" />
+    </svg>
+  );
+
+  const justify = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M1 4H15M1 12H15M1 8H15" stroke="#2B2E31" />
+    </svg>
+  );
+
+  const arrowUp = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M2 11L8.25223 5L14 11" stroke="#2B2E31" />
+    </svg>
+  );
+
+  const arrowDown = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M14 5L7.74778 11L2 5" stroke="#2B2E31" />
+    </svg>
+  );
+
   switch (icon) {
     case 'align-center':
       return alignCenter;
@@ -164,6 +294,26 @@ export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
       return listUnordered;
     case 'edit-link':
       return editLink;
+    case 'bold':
+      return bold;
+    case 'italic':
+      return italic;
+    case 'strikethrough':
+      return strikethrough;
+    case 'underline':
+      return underline;
+    case 'center':
+      return center;
+    case 'left':
+      return left;
+    case 'right':
+      return right;
+    case 'justify':
+      return justify;
+    case 'arrow-up':
+      return arrowUp;
+    case 'arrow-down':
+      return arrowDown;
     default:
       return null;
   }

@@ -32,8 +32,9 @@ import { $isCodeNode, getDefaultCodeLanguage } from '@lexical/code';
 import { getSelectedNode } from 'src/Editor/utils/getSelectedNode';
 
 import ToolbarButton from './components/ToolbarButton/ToolbarButton';
-import { EditorDropdown } from './EditorDropdown/EditorDropdown';
+import { EditorDropdown } from 'src/Editor/components/EditorToolbar/components/EditorDropdown/EditorDropdown';
 import { LinkEditor } from './components/LinkEditor/LinkEditor';
+import { ToolbarDivider } from './components/ToolbarDivider/ToolbarDivider'
 import styles from './EditorToolbar.css';
 
 const EditorToolbar = () => {
@@ -169,6 +170,7 @@ const EditorToolbar = () => {
           onClick={handleFormatTextClick}
         />
       ))}
+      <ToolbarDivider />
       <EditorDropdown
         name="Font size"
         options={DEFAULT_FONT_SIZE_OPTIONS}
@@ -183,6 +185,7 @@ const EditorToolbar = () => {
         activeValue={fontFamily}
         showValue
       />
+      <ToolbarDivider />
       {DEFAULT_TEXT_ALIGN_OPTIONS.map((textAlignOption) => (
         <ToolbarButton
           key={textAlignOption.value}
@@ -191,6 +194,7 @@ const EditorToolbar = () => {
           active={textAlignOption.value === textAlign}
         />
       ))}
+      <ToolbarDivider />
       <ToolbarButton
         toolbarItem="list-ordered"
         onClick={handleFormatOrderedListClick}
@@ -199,6 +203,7 @@ const EditorToolbar = () => {
         toolbarItem="list-unordered"
         onClick={handleFormatUnorderedListClick}
       />
+      <ToolbarDivider />
       <ToolbarButton toolbarItem="link" onClick={handleSetLink} />
       {isLink && createPortal(<LinkEditor editor={editor} />, document.body)}
     </div>
