@@ -52,6 +52,8 @@ const Label = {
   [AlignItem.Center]: AlignCenterLabel,
   [AlignItem.Justify]: AlignJustifyLabel,
   link: () => <Icon icon="link" />,
+  'list-ordered': () => <Icon icon="list-ordered" />,
+  'list-unordered': () => <Icon icon="list-unordered" />,
 };
 
 const ToolbarButton = ({ toolbarItem, active, onClick }: ToolbarItemType) => {

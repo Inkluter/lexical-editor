@@ -4,6 +4,10 @@ import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { ListItemNode, ListNode } from '@lexical/list';
+import { ListPlugin } from '@lexical/react/LexicalListPlugin';
+import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
+import { LinkNode } from '@lexical/link';
 
 import EditorContainer from './components/EditorContainer/EditorContainer';
 import EditorToolbar from './components/EditorToolbar/EditorToolbar';
@@ -50,6 +54,7 @@ function Editor() {
     namespace: 'MyEditor',
     theme,
     onError,
+    nodes: [ListNode, ListItemNode, LinkNode],
   };
 
   return (
@@ -60,6 +65,8 @@ function Editor() {
         <OnChangePlugin onChange={onChange} />
         <HistoryPlugin />
         <MyCustomAutoFocusPlugin />
+        <ListPlugin />
+        <LinkPlugin />
       </LexicalComposer>
     </div>
   );

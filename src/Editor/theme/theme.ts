@@ -13,4 +13,12 @@ export const theme: EditorThemeClasses = {
     underline: 'lexicalEditorTheme__textUnderline',
     underlineStrikethrough: 'lexicalEditorTheme__textUnderlineStrikethrough',
   },
+  list: {
+    nested: {
+      listitem: 'editor-nested-listitem',
+    },
+    ol: 'editor-list-ol',
+    ul: 'editor-list-ul',
+    listitem: 'editor-listitem',
+  },
 };

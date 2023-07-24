@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   DEFAULT_CONFIG,
   DEFAULT_FONT_FAMILY_OPTIONS,
@@ -13,14 +14,26 @@ import {
   FORMAT_TEXT_COMMAND,
   TextFormatType,
 } from 'lexical';
+import {
+  INSERT_ORDERED_LIST_COMMAND,
+  INSERT_UNORDERED_LIST_COMMAND,
+  REMOVE_LIST_COMMAND,
+  $isListNode,
+  ListNode,
+} from '@lexical/list';
 import { $getSelectionStyleValueForProperty } from '@lexical/selection';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { mergeRegister } from '@lexical/utils';
+import { mergeRegister, $getNearestNodeOfType } from '@lexical/utils';
 import { ACTIVE_FORMATS } from 'src/Editor/constants/objects';
 import { ACTIVE_FORMATS_TYPE } from 'src/Editor/constants/models';
+import { TOGGLE_LINK_COMMAND, $isLinkNode } from '@lexical/link';
+import { $isHeadingNode } from '@lexical/rich-text';
+import { $isCodeNode, getDefaultCodeLanguage } from '@lexical/code';
+import { getSelectedNode } from 'src/Editor/utils/getSelectedNode';
 
 import ToolbarButton from './components/ToolbarButton/ToolbarButton';
 import { EditorDropdown } from './EditorDropdown/EditorDropdown';
+import { LinkEditor } from './components/LinkEditor/LinkEditor';
 import styles from './EditorToolbar.css';
 
 const EditorToolbar = () => {
@@ -30,11 +43,38 @@ const EditorToolbar = () => {
   const [fontSize, setFontSize] = useState('15px');
   const [fontFamily, setFontFamily] = useState('Arial');
   const [textAlign, setTextAlign] = useState('');
+  const [isLink, setIsLink] = useState(false);
+  const [blockType, setBlockType] = useState('paragraph');
+  const [selectedElementKey, setSelectedElementKey] = useState(null);
+  const [codeLanguage, setCodeLanguage] = useState('');
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
 
     if ($isRangeSelection(selection)) {
+      const anchorNode = selection.anchor.getNode();
+      const element =
+        anchorNode.getKey() === 'root'
+          ? anchorNode
+          : anchorNode.getTopLevelElementOrThrow();
+      const elementKey = element.getKey();
+      const elementDOM = editor.getElementByKey(elementKey);
+      if (elementDOM !== null) {
+        setSelectedElementKey(elementKey);
+        if ($isListNode(element)) {
+          const parentList = $getNearestNodeOfType(anchorNode, ListNode);
+          const type = parentList ? parentList.getTag() : element.getTag();
+          setBlockType(type);
+        } else {
+          const type = $isHeadingNode(element)
+            ? element.getTag()
+            : element.getType();
+          setBlockType(type);
+          if ($isCodeNode(element)) {
+            setCodeLanguage(element.getLanguage() || getDefaultCodeLanguage());
+          }
+        }
+      }
       Object.keys(ACTIVE_FORMATS).forEach((format) => {
         if (selection.hasFormat(format as TextFormatType)) {
           setActiveFormats((prev) => ({ ...prev, [format]: true }));
@@ -42,6 +82,15 @@ const EditorToolbar = () => {
           setActiveFormats((prev) => ({ ...prev, [format]: false }));
         }
       });
+
+      const node = getSelectedNode(selection);
+      const parent = node.getParent();
+      if ($isLinkNode(parent) || $isLinkNode(node)) {
+        setIsLink(true);
+      } else {
+        setIsLink(false);
+      }
+
       setFontSize(
         $getSelectionStyleValueForProperty(selection, 'font-size', '15px')
       );
@@ -80,6 +129,36 @@ const EditorToolbar = () => {
     [editor]
   );
 
+  const handleFormatOrderedListClick = () => {
+    if (blockType !== 'ol') {
+      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+      console.log('insert');
+    } else {
+      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+      console.log('remove');
+    }
+    // setShowBlockOptionsDropDown(false);
+  };
+
+  const handleFormatUnorderedListClick = () => {
+    if (blockType !== 'ul') {
+      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+      console.log('insert');
+    } else {
+      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+      console.log('remove');
+    }
+    // setShowBlockOptionsDropDown(false);
+  };
+
+  const handleSetLink = useCallback(() => {
+    if (!isLink) {
+      editor.dispatchCommand(TOGGLE_LINK_COMMAND, 'https://');
+    } else {
+      editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
+    }
+  }, [editor, isLink]);
+
   return (
     <div className={styles.toolbar}>
       {DEFAULT_CONFIG.map((toolbarItem) => (
@@ -112,7 +191,16 @@ const EditorToolbar = () => {
           active={textAlignOption.value === textAlign}
         />
       ))}
-      {/*<ToolbarButton toolbarItem={'link'} format="element" />*/}
+      <ToolbarButton
+        toolbarItem="list-ordered"
+        onClick={handleFormatOrderedListClick}
+      />
+      <ToolbarButton
+        toolbarItem="list-unordered"
+        onClick={handleFormatUnorderedListClick}
+      />
+      <ToolbarButton toolbarItem="link" onClick={handleSetLink} />
+      {isLink && createPortal(<LinkEditor editor={editor} />, document.body)}
     </div>
   );
 };
