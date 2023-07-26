@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div className={styles.app}>
       <h1>Editor playground</h1>
-      <Editor />
+      <Editor initialValue="sdfsdfsdfdfs" />
     </div>
   );
 };
