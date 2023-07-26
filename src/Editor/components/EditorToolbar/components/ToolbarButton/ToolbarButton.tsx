@@ -12,17 +12,17 @@ interface ToolbarItemType {
 }
 
 const Superscript = () => (
-  <span>
+  <span style={{ fontSize: 14, marginTop: 2 }}>
     X{' '}
-    <span style={{ position: 'relative', bottom: '0.5em', fontSize: '0.8em' }}>
+    <span style={{ position: 'relative', bottom: '0.7em', fontSize: '0.7em' }}>
       2
     </span>
   </span>
 );
 const Subscript = () => (
-  <span>
+  <span style={{ fontSize: 14, marginTop: 2 }}>
     X{' '}
-    <span style={{ position: 'relative', top: '0.5em', fontSize: '0.8em' }}>
+    <span style={{ position: 'relative', top: '0.4em', fontSize: '0.7em' }}>
       2
     </span>
   </span>
@@ -42,6 +42,7 @@ const Label = {
   link: () => <Icon icon="link" />,
   'list-ordered': () => <Icon icon="list-ordered" />,
   'list-unordered': () => <Icon icon="list-unordered" />,
+  code: () => <Icon icon="list-unordered" />,
 };
 
 const ToolbarButton = ({ toolbarItem, active, onClick }: ToolbarItemType) => {

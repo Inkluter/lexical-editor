@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { $generateHtmlFromNodes } from '@lexical/html';
 import {
   DEFAULT_CONFIG,
   DEFAULT_FONT_FAMILY_OPTIONS,
@@ -30,14 +31,18 @@ import { TOGGLE_LINK_COMMAND, $isLinkNode } from '@lexical/link';
 import { $isHeadingNode } from '@lexical/rich-text';
 import { $isCodeNode, getDefaultCodeLanguage } from '@lexical/code';
 import { getSelectedNode } from 'src/Editor/utils/getSelectedNode';
+import { EditorDropdown } from 'src/Editor/components/EditorToolbar/components/EditorDropdown/EditorDropdown';
 
 import ToolbarButton from './components/ToolbarButton/ToolbarButton';
-import { EditorDropdown } from 'src/Editor/components/EditorToolbar/components/EditorDropdown/EditorDropdown';
 import { LinkEditor } from './components/LinkEditor/LinkEditor';
-import { ToolbarDivider } from './components/ToolbarDivider/ToolbarDivider'
+import { ToolbarDivider } from './components/ToolbarDivider/ToolbarDivider';
 import styles from './EditorToolbar.css';
 
-const EditorToolbar = () => {
+interface EditorToolbarProps {
+  editorWrapperRef: React.RefObject<HTMLDivElement>;
+}
+
+const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
   const [editor] = useLexicalComposerContext();
   const [activeFormats, setActiveFormats] =
     useState<ACTIVE_FORMATS_TYPE>(ACTIVE_FORMATS);
@@ -119,6 +124,13 @@ const EditorToolbar = () => {
     },
     [editor]
   );
+
+  const handleHtmlClick = useCallback(() => {
+    editor.update(() => {
+      const htmlString = $generateHtmlFromNodes(editor, null);
+      console.log(htmlString);
+    });
+  }, [editor]);
 
   const handleFormatElementClick = useCallback(
     (command: ElementFormatType) => {
@@ -205,7 +217,16 @@ const EditorToolbar = () => {
       />
       <ToolbarDivider />
       <ToolbarButton toolbarItem="link" onClick={handleSetLink} />
-      {isLink && createPortal(<LinkEditor editor={editor} />, document.body)}
+      {isLink &&
+        createPortal(
+          <LinkEditor editor={editor} editorWrapperRef={editorWrapperRef} />,
+          document.body
+        )}
+      <ToolbarButton
+        toolbarItem="code"
+        active={false}
+        onClick={handleHtmlClick}
+      />
     </div>
   );
 };

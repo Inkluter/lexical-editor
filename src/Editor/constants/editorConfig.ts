@@ -3,8 +3,8 @@ export const DEFAULT_CONFIG = [
   'italic',
   'underline',
   'strikethrough',
-  // 'superscript',
-  // 'subscript',
+  'superscript',
+  'subscript',
 ];
 
 export const DEFAULT_FONT_SIZE_OPTIONS = [

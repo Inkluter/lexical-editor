@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, useId } from 'react';
+import classNames from 'classnames';
 import {
   $getSelection,
   $isRangeSelection,
@@ -15,34 +16,46 @@ import styles from './LinkEditor.css';
 
 const LowPriority = 1;
 
-function positionEditorElement(editor: LexicalEditor, rect: DOMRect | null) {
-  console.log(rect);
+function positionEditorElement(
+  editor: HTMLElement,
+  rect: DOMRect | null,
+  editorWrapperRef: React.RefObject<HTMLDivElement> | null
+) {
   if (rect === null) {
     editor.style.opacity = '0';
     editor.style.top = '-1000px';
     editor.style.left = '-1000px';
   } else {
+    const editorWrapper = editorWrapperRef.current;
+    const editorRect = editorWrapper.getBoundingClientRect();
+
     editor.style.opacity = '1';
     editor.style.top = `${rect.top + rect.height + window.pageYOffset + 10}px`;
-    editor.style.left = `${
-      rect.left + window.pageXOffset - editor.offsetWidth / 2 + rect.width / 2
-    }px`;
+    editor.style.left = `${rect.left}px`;
   }
 }
 
-export function LinkEditor({ editor }: { editor: LexicalEditor }) {
+interface LinkEditorProps {
+  editor: LexicalEditor;
+  editorWrapperRef: React.RefObject<HTMLDivElement>;
+}
+
+export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
   const editorRef = useRef(null);
   const inputRef = useRef(null);
   const mouseDownRef = useRef(false);
   const [linkUrl, setLinkUrl] = useState('');
   const [isEditMode, setEditMode] = useState(false);
   const [lastSelection, setLastSelection] = useState(null);
+  const [isTargetBlank, setIsTargetBlank] = useState(false);
+  const checkboxId = useId();
 
   const updateLinkEditor = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
       const node = getSelectedNode(selection);
       const parent = node.getParent();
+      setIsTargetBlank(parent.__target === '_blank');
       if ($isLinkNode(parent)) {
         setLinkUrl(parent.getURL());
       } else if ($isLinkNode(node)) {
@@ -69,7 +82,7 @@ export function LinkEditor({ editor }: { editor: LexicalEditor }) {
       const domRange = nativeSelection.getRangeAt(0);
       let rect;
       if (nativeSelection.anchorNode === rootElement) {
-        let inner = rootElement;
+        let inner: Element = rootElement;
         while (inner.firstElementChild != null) {
           inner = inner.firstElementChild;
         }
@@ -79,11 +92,11 @@ export function LinkEditor({ editor }: { editor: LexicalEditor }) {
       }
 
       if (!mouseDownRef.current) {
-        positionEditorElement(editorElem, rect);
+        positionEditorElement(editorElem, rect, editorWrapperRef);
       }
       setLastSelection(selection);
     } else if (!activeElement || activeElement.className !== 'link-input') {
-      positionEditorElement(editorElem, null);
+      positionEditorElement(editorElem, null, null);
       setLastSelection(null);
       setEditMode(false);
       setLinkUrl('');
@@ -91,6 +104,19 @@ export function LinkEditor({ editor }: { editor: LexicalEditor }) {
 
     return true;
   }, [editor]);
+
+  const handleTargetCheckboxClick = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const isChecked = event.target.checked;
+
+      setIsTargetBlank(isChecked);
+      editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
+        url: linkUrl,
+        target: isChecked ? '_blank' : '',
+      });
+    },
+    [editor, linkUrl]
+  );
 
   useEffect(() => {
     return mergeRegister(
@@ -140,7 +166,10 @@ export function LinkEditor({ editor }: { editor: LexicalEditor }) {
               event.preventDefault();
               if (lastSelection !== null) {
                 if (linkUrl !== '') {
-                  editor.dispatchCommand(TOGGLE_LINK_COMMAND, linkUrl);
+                  editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
+                    url: linkUrl,
+                    target: '_blank',
+                  });
                 }
                 setEditMode(false);
               }
@@ -151,13 +180,30 @@ export function LinkEditor({ editor }: { editor: LexicalEditor }) {
           }}
         />
       ) : (
-        <>
+        <div className={styles.link_editor_mode_wrapper}>
           <div className={styles.link_editor_input}>
             <a href={linkUrl} target="_blank" rel="noopener noreferrer">
               {linkUrl}
             </a>
             <div
-              className={styles.link_editor_edit}
+              className={classNames(
+                styles.link_editor_edit,
+                styles.link_editor_button
+              )}
+              role="button"
+              tabIndex={0}
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => {
+                setEditMode(true);
+              }}
+            >
+              <Icon icon="remove" />
+            </div>
+            <div
+              className={classNames(
+                styles.link_editor_remove,
+                styles.link_editor_button
+              )}
               role="button"
               tabIndex={0}
               onMouseDown={(event) => event.preventDefault()}
@@ -168,7 +214,19 @@ export function LinkEditor({ editor }: { editor: LexicalEditor }) {
               <Icon icon="edit-link" />
             </div>
           </div>
-        </>
+          <div className={styles.link_editor_label_wrapper}>
+            <input
+              id={checkboxId}
+              type="checkbox"
+              // @ts-ignore
+              onClick={handleTargetCheckboxClick}
+              checked={isTargetBlank}
+            />
+            <label className={styles.link_editor_label} htmlFor={checkboxId}>
+              Open link in new window
+            </label>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -120,22 +120,20 @@ export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
 
   const editLink = (
     <svg
-      fill="#000000"
-      width={width}
-      height={height}
+      width="800px"
+      height="800px"
       viewBox="0 0 24 24"
+      role="img"
       xmlns="http://www.w3.org/2000/svg"
+      aria-labelledby="editIconTitle"
+      stroke="#000000"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+      color="#000000"
     >
-      <g id="Edit / Edit_Pencil_02">
-        <path
-          id="Vector"
-          d="M4 16.0001V20.0001L8 20.0001L18.8686 9.13146L18.8695 9.13061C19.265 8.73516 19.4628 8.53736 19.5369 8.3092C19.6021 8.10835 19.6022 7.89201 19.5369 7.69117C19.4627 7.46284 19.2646 7.26474 18.8686 6.86872L17.1288 5.12892C16.7345 4.7346 16.5369 4.53704 16.3091 4.46301C16.1082 4.39775 15.8919 4.39775 15.691 4.46301C15.463 4.53709 15.2652 4.73488 14.8704 5.12976L14.8686 5.13146L4 16.0001Z"
-          stroke="#000000"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </g>
+      <path d="M18.4142136 4.41421356L19.5857864 5.58578644C20.366835 6.36683502 20.366835 7.63316498 19.5857864 8.41421356L8 20 4 20 4 16 15.5857864 4.41421356C16.366835 3.63316498 17.633165 3.63316498 18.4142136 4.41421356zM14 6L18 10" />
     </svg>
   );
 
@@ -277,6 +275,45 @@ export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
     </svg>
   );
 
+  const confirm = (
+    <svg
+      width="800px"
+      height="800px"
+      viewBox="0 0 24 24"
+      role="img"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-labelledby="circleOkIconTitle"
+      stroke="#000000"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+      color="#000000"
+    >
+      <polyline points="7 13 10 16 17 9" /> <circle cx="12" cy="12" r="10" />
+    </svg>
+  );
+
+  const remove = (
+    <svg
+      width="800px"
+      height="800px"
+      viewBox="0 0 24 24"
+      role="img"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-labelledby="deleteIconTitle"
+      stroke="#000000"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+      color="#000000"
+    >
+      <polygon points="20 18 9 18 3 12 9 6 20 6" />
+      <path d="M12.1143819 10.1143819L15.8856181 13.8856181M12.1143819 13.8856181L15.8856181 10.1143819" />
+    </svg>
+  );
+
   switch (icon) {
     case 'align-center':
       return alignCenter;
@@ -314,6 +351,10 @@ export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
       return arrowUp;
     case 'arrow-down':
       return arrowDown;
+    case 'confirm':
+      return confirm;
+    case 'remove':
+      return remove;
     default:
       return null;
   }

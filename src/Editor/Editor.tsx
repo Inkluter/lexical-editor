@@ -1,5 +1,5 @@
 import { $getRoot, $getSelection, EditorState } from 'lexical';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
@@ -50,6 +50,7 @@ function onError(error: Error) {
 }
 
 function Editor() {
+  const editorWrapperRef = useRef(null);
   const initialConfig = {
     namespace: 'MyEditor',
     theme,
@@ -58,9 +59,9 @@ function Editor() {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div ref={editorWrapperRef} className={styles.wrapper}>
       <LexicalComposer initialConfig={initialConfig}>
-        <EditorToolbar />
+        <EditorToolbar editorWrapperRef={editorWrapperRef} />
         <EditorContainer />
         <OnChangePlugin onChange={onChange} />
         <HistoryPlugin />
