@@ -12,6 +12,7 @@ import { mergeRegister } from '@lexical/utils';
 import { getSelectedNode } from 'src/Editor/utils/getSelectedNode';
 import { Icon } from 'src/Editor/components/Icons/Icon';
 
+import { LinkEditorButton } from './LinkEditorButton/LinkEditorButton';
 import styles from './LinkEditor.css';
 
 const LowPriority = 1;
@@ -118,6 +119,19 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
     [editor, linkUrl]
   );
 
+  const handleConfirmClick = useCallback(() => {
+    editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
+      url: linkUrl,
+      target: isTargetBlank ? '_blank' : '',
+    });
+    setEditMode(false);
+  }, [editor, isTargetBlank, linkUrl]);
+
+  const handleRemoveClick = useCallback(() => {
+    editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
+    setEditMode(false);
+  }, [editor]);
+
   useEffect(() => {
     return mergeRegister(
       editor.registerUpdateListener(
@@ -154,72 +168,68 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
   return (
     <div ref={editorRef} className={styles.link_editor}>
       {isEditMode ? (
-        <input
-          ref={inputRef}
-          className={styles.link_editor_input}
-          value={linkUrl}
-          onChange={(event) => {
-            setLinkUrl(event.target.value);
-          }}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter') {
-              event.preventDefault();
-              if (lastSelection !== null) {
-                if (linkUrl !== '') {
-                  editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
-                    url: linkUrl,
-                    target: '_blank',
-                  });
+        <div className={styles.link_editor_mode_wrapper}>
+          <input
+            ref={inputRef}
+            className={styles.link_editor_input}
+            value={linkUrl}
+            onChange={(event) => {
+              setLinkUrl(event.target.value);
+            }}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                if (lastSelection !== null) {
+                  if (linkUrl !== '') {
+                    editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
+                      url: linkUrl,
+                      target: '_blank',
+                    });
+                  }
+                  setEditMode(false);
                 }
+              } else if (event.key === 'Escape') {
+                event.preventDefault();
                 setEditMode(false);
               }
-            } else if (event.key === 'Escape') {
-              event.preventDefault();
-              setEditMode(false);
-            }
-          }}
-        />
+            }}
+          />
+          <LinkEditorButton
+            iconName="cancel"
+            onClick={() => setEditMode(false)}
+            className={styles.link_editor_edit}
+          />
+          <LinkEditorButton
+            iconName="confirm"
+            onClick={handleConfirmClick}
+            className={styles.link_editor_remove}
+          />
+        </div>
       ) : (
         <div className={styles.link_editor_mode_wrapper}>
           <div className={styles.link_editor_input}>
             <a href={linkUrl} target="_blank" rel="noopener noreferrer">
               {linkUrl}
             </a>
-            <div
-              className={classNames(
-                styles.link_editor_edit,
-                styles.link_editor_button
-              )}
-              role="button"
-              tabIndex={0}
-              onMouseDown={(event) => event.preventDefault()}
+            <LinkEditorButton
+              iconName="remove"
+              onClick={handleRemoveClick}
+              className={styles.link_editor_edit}
+            />
+            <LinkEditorButton
+              iconName="edit-link"
               onClick={() => {
                 setEditMode(true);
               }}
-            >
-              <Icon icon="remove" />
-            </div>
-            <div
-              className={classNames(
-                styles.link_editor_remove,
-                styles.link_editor_button
-              )}
-              role="button"
-              tabIndex={0}
-              onMouseDown={(event) => event.preventDefault()}
-              onClick={() => {
-                setEditMode(true);
-              }}
-            >
-              <Icon icon="edit-link" />
-            </div>
+              className={styles.link_editor_remove}
+            />
           </div>
           <div className={styles.link_editor_label_wrapper}>
             <input
               id={checkboxId}
               type="checkbox"
               // @ts-ignore
-              onClick={handleTargetCheckboxClick}
+              onChange={handleTargetCheckboxClick}
               checked={isTargetBlank}
             />
             <label className={styles.link_editor_label} htmlFor={checkboxId}>

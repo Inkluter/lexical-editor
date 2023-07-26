@@ -61,7 +61,7 @@
 }
 
 .link_editor_label_wrapper {
-    margin: 8px;
+    margin: 10px;
     display: flex;
     align-items: center;
 }
@@ -70,6 +70,8 @@
     font-family: Helvetica, Arial, sans-serif;
     margin-left: 5px;
     font-size: 13px;
+    cursor: pointer;
+    padding: 5px 0;
 }
 
 .link_editor_edit {
