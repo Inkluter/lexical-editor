@@ -14,10 +14,9 @@ export const theme: EditorThemeClasses = {
     underline: 'lexical_editor__text_underline',
     underlineStrikethrough: 'lexical_editor__text_underline_strikethrough',
   },
+  quote: 'lexical_editor__quote',
   list: {
     listitem: 'lexical_editor__list_item',
-    listitemChecked: 'lexical_editor__list_item_checked',
-    listitemUnchecked: 'lexical_editor__list_item_unchecked',
     nested: {
       listitem: 'lexical_editor__nested_list_item',
     },

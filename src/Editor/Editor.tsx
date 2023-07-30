@@ -6,6 +6,7 @@ import { ListItemNode, ListNode } from '@lexical/list';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import { LinkNode } from '@lexical/link';
+import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 
 import EditorContainer from './components/EditorContainer/EditorContainer';
 import EditorToolbar from './components/EditorToolbar/EditorToolbar';
@@ -28,7 +29,7 @@ function Editor({ initialValue }: EditorType) {
     namespace: 'MyEditor',
     theme,
     onError,
-    nodes: [ListNode, ListItemNode, LinkNode],
+    nodes: [ListNode, ListItemNode, LinkNode, QuoteNode],
   };
 
   useEffect(() => {}, []);

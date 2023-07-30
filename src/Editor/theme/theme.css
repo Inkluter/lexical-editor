@@ -33,6 +33,61 @@
     list-style-position: inside;
 }
 .lexical_editor__paragraph {
-    margin: .2rem;
+    margin: 0;
     position: relative;
+}
+.lexical_editor__quote {
+    margin: 0;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: rgb(101, 103, 107);
+    border-left-color: rgb(206, 208, 212);
+    border-left-width: 4px;
+    border-left-style: solid;
+    padding-left: 16px;
+}
+.lexical_editor__ol1 {
+    padding: 0;
+    margin: 0;
+    list-style-position: inside;
+}
+.lexical_editor__ol2 {
+    padding: 0;
+    margin: 0;
+    list-style-type: upper-alpha;
+    list-style-position: inside;
+}
+.lexical_editor__ol3 {
+    padding: 0;
+    margin: 0;
+    list-style-type: lower-alpha;
+    list-style-position: inside;
+}
+.lexical_editor__ol4 {
+    padding: 0;
+    margin: 0;
+    list-style-type: upper-roman;
+    list-style-position: inside;
+}
+.lexical_editor__ol5 {
+    padding: 0;
+    margin: 0;
+    list-style-type: lower-roman;
+    list-style-position: inside;
+}
+.lexical_editor__ul {
+    padding: 0;
+    margin: 0;
+    list-style-position: inside;
+}
+.lexical_editor__list_item {
+    margin: 0 32px;
+}
+.lexical_editor__nested_list_item {
+    list-style-type: none;
+}
+.lexical_editor__nested_list_item:before,
+.lexical_editor__nested_list_item:after {
+    display: none;
 }

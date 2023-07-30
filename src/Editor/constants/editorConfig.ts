@@ -6,6 +6,7 @@ export const DEFAULT_CONFIG = [
   'superscript',
   'subscript',
   'code',
+  'quote',
 ];
 
 export const DEFAULT_FONT_SIZE_OPTIONS = [
@@ -46,3 +47,5 @@ export const DEFAULT_TEXT_ALIGN_OPTIONS = [
   { label: 'Right', value: 'right' },
   { label: 'Justify', value: 'justify' },
 ];
+
+export const DEFAULT_BLOCK_TYPE_OPTIONS = [{ label: 'Quote', value: 'quote' }];

@@ -2,8 +2,29 @@ import React from 'react';
 import clsx from 'clsx';
 import { ToolbarItem, AlignItem } from 'src/Editor/constants/enums';
 import { Icon } from 'src/Editor/components/Icons/Icon';
-
+import {
+  $getSelection,
+  $isRangeSelection,
+  ElementFormatType,
+  FORMAT_ELEMENT_COMMAND,
+  FORMAT_TEXT_COMMAND,
+  TextFormatType,
+} from 'lexical';
+import {
+  $getSelectionStyleValueForProperty,
+  $isParentElementRTL,
+  $patchStyleText,
+  $selectAll,
+  $setBlocksType_experimental,
+} from '@lexical/selection';
+import {
+  $createHeadingNode,
+  $createQuoteNode,
+  $isHeadingNode,
+  HeadingTagType,
+} from '@lexical/rich-text';
 import './ToolbarButton.css';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 
 interface ToolbarItemType {
   toolbarItem: string;
@@ -43,10 +64,25 @@ const Label = {
   'list-ordered': () => <Icon icon="list-ordered" />,
   'list-unordered': () => <Icon icon="list-unordered" />,
   [ToolbarItem.Code]: () => <Icon icon="code" />,
+  [ToolbarItem.Quote]: () => <Icon icon="quote" />,
 };
 
 const ToolbarButton = ({ toolbarItem, active, onClick }: ToolbarItemType) => {
   const ButtonLabel = Label[toolbarItem as ToolbarItem];
+  const [editor] = useLexicalComposerContext();
+
+  const handleClick = () => {
+    if (toolbarItem === ToolbarItem.Quote) {
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          $setBlocksType_experimental(selection, () => $createQuoteNode());
+        }
+      });
+    }
+
+    onClick(toolbarItem);
+  };
 
   return (
     <button
@@ -54,7 +90,7 @@ const ToolbarButton = ({ toolbarItem, active, onClick }: ToolbarItemType) => {
         'lexical_editor_toolbar_button',
         active && 'lexical_editor_toolbar_button__active'
       )}
-      onClick={() => onClick(toolbarItem)}
+      onClick={handleClick}
     >
       <ButtonLabel />
     </button>

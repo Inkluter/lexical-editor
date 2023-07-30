@@ -6,6 +6,7 @@ export enum ToolbarItem {
   Superscript = 'superscript',
   Subscript = 'subscript',
   Code = 'code',
+  Quote = 'quote',
 }
 
 export enum AlignItem {
