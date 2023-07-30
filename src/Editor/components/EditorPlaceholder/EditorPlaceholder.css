@@ -1,5 +1,6 @@
 .placeholder {
     position: absolute;
-    left: 1.5rem;
-    top: 1.5rem;
+    left: 1.4rem;
+    top: 0.7rem;
+    opacity: .5;
 }

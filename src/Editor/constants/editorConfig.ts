@@ -5,6 +5,7 @@ export const DEFAULT_CONFIG = [
   'strikethrough',
   'superscript',
   'subscript',
+  'code',
 ];
 
 export const DEFAULT_FONT_SIZE_OPTIONS = [

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState, useId } from 'react';
-import classNames from 'classnames';
 import {
   $getSelection,
   $isRangeSelection,
@@ -10,10 +9,9 @@ import {
 import { TOGGLE_LINK_COMMAND, $isLinkNode } from '@lexical/link';
 import { mergeRegister } from '@lexical/utils';
 import { getSelectedNode } from 'src/Editor/utils/getSelectedNode';
-import { Icon } from 'src/Editor/components/Icons/Icon';
 
 import { LinkEditorButton } from './LinkEditorButton/LinkEditorButton';
-import styles from './LinkEditor.css';
+import './LinkEditor.css';
 
 const LowPriority = 1;
 
@@ -166,12 +164,12 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
   }, [isEditMode]);
 
   return (
-    <div ref={editorRef} className={styles.link_editor}>
+    <div ref={editorRef} className="link_editor">
       {isEditMode ? (
-        <div className={styles.link_editor_mode_wrapper}>
+        <div className="link_editor_mode_wrapper">
           <input
             ref={inputRef}
-            className={styles.link_editor_input}
+            className="link_editor_input"
             value={linkUrl}
             onChange={(event) => {
               setLinkUrl(event.target.value);
@@ -197,34 +195,34 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
           <LinkEditorButton
             iconName="cancel"
             onClick={() => setEditMode(false)}
-            className={styles.link_editor_edit}
+            className="link_editor_edit"
           />
           <LinkEditorButton
             iconName="confirm"
             onClick={handleConfirmClick}
-            className={styles.link_editor_remove}
+            className="link_editor_remove"
           />
         </div>
       ) : (
-        <div className={styles.link_editor_mode_wrapper}>
-          <div className={styles.link_editor_input}>
+        <div className="link_editor_mode_wrapper">
+          <div className="link_editor_input">
             <a href={linkUrl} target="_blank" rel="noopener noreferrer">
               {linkUrl}
             </a>
             <LinkEditorButton
               iconName="remove"
               onClick={handleRemoveClick}
-              className={styles.link_editor_edit}
+              className="link_editor_edit"
             />
             <LinkEditorButton
               iconName="edit-link"
               onClick={() => {
                 setEditMode(true);
               }}
-              className={styles.link_editor_remove}
+              className="link_editor_remove"
             />
           </div>
-          <div className={styles.link_editor_label_wrapper}>
+          <div className="link_editor_label_wrapper">
             <input
               id={checkboxId}
               type="checkbox"
@@ -232,7 +230,7 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
               onChange={handleTargetCheckboxClick}
               checked={isTargetBlank}
             />
-            <label className={styles.link_editor_label} htmlFor={checkboxId}>
+            <label className="link_editor_label" htmlFor={checkboxId}>
               Open link in new window
             </label>
           </div>

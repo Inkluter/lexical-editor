@@ -4,13 +4,13 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 
 import EditorPlaceholder from '../EditorPlaceholder/EditorPlaceholder';
-import styles from './EditorContainer.css';
+import './EditorContainer.css';
 
 const EditorContainer = () => {
   return (
-    <div className={styles.container}>
+    <div className="container">
       <RichTextPlugin
-        contentEditable={<ContentEditable className={styles.content} />}
+        contentEditable={<ContentEditable className="content" />}
         placeholder={EditorPlaceholder}
         ErrorBoundary={LexicalErrorBoundary}
       />

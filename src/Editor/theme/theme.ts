@@ -3,22 +3,31 @@ import type { EditorThemeClasses } from 'lexical';
 import './theme.css';
 
 export const theme: EditorThemeClasses = {
+  paragraph: 'lexical_editor__paragraph',
   text: {
-    bold: 'lexicalEditorTheme__textBold',
-    code: 'lexicalEditorTheme__textCode',
-    italic: 'lexicalEditorTheme__textItalic',
-    strikethrough: 'lexicalEditorTheme__textStrikethrough',
-    subscript: 'lexicalEditorTheme__textSubscript',
-    superscript: 'lexicalEditorTheme__textSuperscript',
-    underline: 'lexicalEditorTheme__textUnderline',
-    underlineStrikethrough: 'lexicalEditorTheme__textUnderlineStrikethrough',
+    bold: 'lexical_editor__text_bold',
+    code: 'lexical_editor__text_code',
+    italic: 'lexical_editor__text_italic',
+    strikethrough: 'lexical_editor__text_strikethrough',
+    subscript: 'lexical_editor__text_subscript',
+    superscript: 'lexical_editor__text_superscript',
+    underline: 'lexical_editor__text_underline',
+    underlineStrikethrough: 'lexical_editor__text_underline_strikethrough',
   },
   list: {
+    listitem: 'lexical_editor__list_item',
+    listitemChecked: 'lexical_editor__list_item_checked',
+    listitemUnchecked: 'lexical_editor__list_item_unchecked',
     nested: {
-      listitem: 'editor-nested-listitem',
+      listitem: 'lexical_editor__nested_list_item',
     },
-    ol: 'editor-list-ol',
-    ul: 'editor-list-ul',
-    listitem: 'editor-listitem',
+    olDepth: [
+      'lexical_editor__ol1',
+      'lexical_editor__ol2',
+      'lexical_editor__ol3',
+      'lexical_editor__ol4',
+      'lexical_editor__ol5',
+    ],
+    ul: 'lexical_editor__ul',
   },
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
 import { ListItemNode, ListNode } from '@lexical/list';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
@@ -11,7 +12,7 @@ import EditorToolbar from './components/EditorToolbar/EditorToolbar';
 import { InitialValuePlugin } from './plugins/InitialValuePlugin';
 import { theme } from './theme/theme';
 import './theme/theme.css';
-import styles from './Editor.css';
+import './Editor.css';
 
 interface EditorType {
   initialValue?: string;
@@ -33,10 +34,11 @@ function Editor({ initialValue }: EditorType) {
   useEffect(() => {}, []);
 
   return (
-    <div ref={editorWrapperRef} className={styles.wrapper}>
+    <div ref={editorWrapperRef} className="lexical_editor_wrapper">
       <LexicalComposer initialConfig={initialConfig}>
         <EditorToolbar editorWrapperRef={editorWrapperRef} />
         <EditorContainer />
+        <TabIndentationPlugin />
         <HistoryPlugin />
         <ListPlugin />
         <LinkPlugin />

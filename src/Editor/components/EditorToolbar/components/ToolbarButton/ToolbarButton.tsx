@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { ToolbarItem, AlignItem } from 'src/Editor/constants/enums';
 import { Icon } from 'src/Editor/components/Icons/Icon';
 
-import styles from './ToolbarButton.css';
+import './ToolbarButton.css';
 
 interface ToolbarItemType {
   toolbarItem: string;
@@ -42,7 +42,7 @@ const Label = {
   link: () => <Icon icon="link" />,
   'list-ordered': () => <Icon icon="list-ordered" />,
   'list-unordered': () => <Icon icon="list-unordered" />,
-  code: () => <Icon icon="list-unordered" />,
+  [ToolbarItem.Code]: () => <Icon icon="code" />,
 };
 
 const ToolbarButton = ({ toolbarItem, active, onClick }: ToolbarItemType) => {
@@ -51,8 +51,8 @@ const ToolbarButton = ({ toolbarItem, active, onClick }: ToolbarItemType) => {
   return (
     <button
       className={classNames(
-        styles.toolbar_button,
-        active && styles.toolbar_button__active
+        'toolbar_button',
+        active && 'toolbar_button__active'
       )}
       onClick={() => onClick(toolbarItem)}
     >

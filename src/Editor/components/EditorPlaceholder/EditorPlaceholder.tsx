@@ -1,9 +1,9 @@
 import React from 'react';
 
-import styles from './EditorPlaceholder.css';
+import './EditorPlaceholder.css';
 
 const EditorPlaceholder = () => {
-  return <div className={styles.placeholder}>Enter some text...</div>;
+  return <div className="placeholder">Enter some text...</div>;
 };
 
 export default EditorPlaceholder;

@@ -5,6 +5,7 @@ export enum ToolbarItem {
   Strikethrough = 'strikethrough',
   Superscript = 'superscript',
   Subscript = 'subscript',
+  Code = 'code',
 }
 
 export enum AlignItem {

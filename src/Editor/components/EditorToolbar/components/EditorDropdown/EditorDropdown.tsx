@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { Icon } from 'src/Editor/components/Icons/Icon';
 
 import { Option } from '../../../../constants/models';
-import styles from './EditorDropdown.css';
+import './EditorDropdown.css';
 
 interface EditorDropdownType {
   name: string;
@@ -51,27 +51,27 @@ export const EditorDropdown = ({
   );
 
   return (
-    <div className={styles.dropdown_wrapper}>
+    <div className="dropdown_wrapper">
       <button
         ref={buttonRef}
         onClick={() => setIsListVisible(!isListVisible)}
         className={classNames(
-          styles.dropdown_button,
-          isListVisible && styles.dropdown_button__active
+          'dropdown_button',
+          isListVisible && 'dropdown_button__active'
         )}
       >
         {showValue ? activeValue : name}
-        <div className={styles.dropdown_icon}>
+        <div className="dropdown_icon">
           <Icon icon={isListVisible ? 'arrow-up' : 'arrow-down'} />
         </div>
       </button>
       {isListVisible && (
-        <div ref={listRef} className={styles.dropdown_list}>
+        <div ref={listRef} className="dropdown_list">
           {options.map((option) => (
             <div
               className={classNames(
-                styles.dropdown_option,
-                activeValue === option.value && styles.dropdown_option__active
+                'dropdown_option',
+                activeValue === option.value && 'dropdown_option__active'
               )}
               onClick={() => handleClick(option.value as string)}
               key={option.value}

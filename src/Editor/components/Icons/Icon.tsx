@@ -334,6 +334,21 @@ export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
     </svg>
   );
 
+  const code = (
+    <svg
+      width="800px"
+      height="800px"
+      viewBox="0 0 64 64"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke="#000000"
+    >
+      <polyline points="16 48 8 32 16 16" />
+      <polyline points="48 48 56 32 48 16" />
+      <line x1="36" y1="8" x2="28" y2="56" />
+    </svg>
+  );
+
   switch (icon) {
     case 'align-center':
       return alignCenter;
@@ -377,6 +392,8 @@ export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
       return remove;
     case 'cancel':
       return cancelLink;
+    case 'code':
+      return code;
     default:
       return null;
   }

@@ -36,7 +36,7 @@ import { EditorDropdown } from 'src/Editor/components/EditorToolbar/components/E
 import ToolbarButton from './components/ToolbarButton/ToolbarButton';
 import { LinkEditor } from './components/LinkEditor/LinkEditor';
 import { ToolbarDivider } from './components/ToolbarDivider/ToolbarDivider';
-import styles from './EditorToolbar.css';
+import './EditorToolbar.css';
 
 interface EditorToolbarProps {
   editorWrapperRef: React.RefObject<HTMLDivElement>;
@@ -173,7 +173,7 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
   }, [editor, isLink]);
 
   return (
-    <div className={styles.toolbar}>
+    <div className="toolbar">
       {DEFAULT_CONFIG.map((toolbarItem) => (
         <ToolbarButton
           key={toolbarItem}
