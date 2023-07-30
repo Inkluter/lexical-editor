@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import 'src/Editor/components/EditorToolbar/components/LinkEditor/LinkEditor.css';
 import { Icon } from 'src/Editor/components/Icons/Icon';
 
@@ -15,7 +15,7 @@ export const LinkEditorButton = ({
   className,
 }: LinkEditorButtonProps) => (
   <div
-    className={classNames(className, 'lexical_editor_link_editor_button')}
+    className={clsx(className, 'lexical_editor_link_editor_button')}
     role="button"
     tabIndex={0}
     onMouseDown={(event) => event.preventDefault()}

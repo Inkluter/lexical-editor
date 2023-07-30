@@ -3,7 +3,7 @@ import { useOnClickOutside } from 'src/Editor/hooks/useOnClickOutside';
 import { $getSelection, $isRangeSelection } from 'lexical';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $patchStyleText } from '@lexical/selection';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Icon } from 'src/Editor/components/Icons/Icon';
 
 import { Option } from '../../../../constants/models';
@@ -55,7 +55,7 @@ export const EditorDropdown = ({
       <button
         ref={buttonRef}
         onClick={() => setIsListVisible(!isListVisible)}
-        className={classNames(
+        className={clsx(
           'lexical_editor_dropdown_button',
           isListVisible && 'lexical_editor_dropdown_button__active'
         )}
@@ -69,7 +69,7 @@ export const EditorDropdown = ({
         <div ref={listRef} className="lexical_editor_dropdown_list">
           {options.map((option) => (
             <div
-              className={classNames(
+              className={clsx(
                 'lexical_editor_dropdown_option',
                 activeValue === option.value &&
                   'lexical_editor_dropdown_option__active'

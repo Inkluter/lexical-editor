@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { ToolbarItem, AlignItem } from 'src/Editor/constants/enums';
 import { Icon } from 'src/Editor/components/Icons/Icon';
 
@@ -50,7 +50,7 @@ const ToolbarButton = ({ toolbarItem, active, onClick }: ToolbarItemType) => {
 
   return (
     <button
-      className={classNames(
+      className={clsx(
         'lexical_editor_toolbar_button',
         active && 'lexical_editor_toolbar_button__active'
       )}
