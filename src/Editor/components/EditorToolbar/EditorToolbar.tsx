@@ -173,7 +173,7 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
   }, [editor, isLink]);
 
   return (
-    <div className="toolbar">
+    <div className="lexical_editor_toolbar">
       {DEFAULT_CONFIG.map((toolbarItem) => (
         <ToolbarButton
           key={toolbarItem}

@@ -164,12 +164,12 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
   }, [isEditMode]);
 
   return (
-    <div ref={editorRef} className="link_editor">
+    <div ref={editorRef} className="lexical_editor_link_editor">
       {isEditMode ? (
-        <div className="link_editor_mode_wrapper">
+        <div className="lexical_editor_link_editor_mode_wrapper">
           <input
             ref={inputRef}
-            className="link_editor_input"
+            className="lexical_editor_link_editor_input"
             value={linkUrl}
             onChange={(event) => {
               setLinkUrl(event.target.value);
@@ -195,34 +195,34 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
           <LinkEditorButton
             iconName="cancel"
             onClick={() => setEditMode(false)}
-            className="link_editor_edit"
+            className="lexical_editor_link_editor_edit"
           />
           <LinkEditorButton
             iconName="confirm"
             onClick={handleConfirmClick}
-            className="link_editor_remove"
+            className="lexical_editor_link_editor_remove"
           />
         </div>
       ) : (
-        <div className="link_editor_mode_wrapper">
-          <div className="link_editor_input">
+        <div className="lexical_editor_link_editor_mode_wrapper">
+          <div className="lexical_editor_link_editor_input">
             <a href={linkUrl} target="_blank" rel="noopener noreferrer">
               {linkUrl}
             </a>
             <LinkEditorButton
               iconName="remove"
               onClick={handleRemoveClick}
-              className="link_editor_edit"
+              className="lexical_editor_link_editor_edit"
             />
             <LinkEditorButton
               iconName="edit-link"
               onClick={() => {
                 setEditMode(true);
               }}
-              className="link_editor_remove"
+              className="lexical_editor_link_editor_remove"
             />
           </div>
-          <div className="link_editor_label_wrapper">
+          <div className="lexical_editor_link_editor_label_wrapper">
             <input
               id={checkboxId}
               type="checkbox"
@@ -230,7 +230,7 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
               onChange={handleTargetCheckboxClick}
               checked={isTargetBlank}
             />
-            <label className="link_editor_label" htmlFor={checkboxId}>
+            <label className="lexical_editor_link_editor_label" htmlFor={checkboxId}>
               Open link in new window
             </label>
           </div>

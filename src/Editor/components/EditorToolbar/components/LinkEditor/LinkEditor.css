@@ -1,10 +1,10 @@
 @import 'src/Editor/theme/colors.css';
 
-.link_editor_mode_wrapper {
+.lexical_editor_link_editor_mode_wrapper {
 
 }
 
-.link_editor {
+.lexical_editor_link_editor {
     position: absolute;
     z-index: 2;
     top: -10000px;
@@ -20,7 +20,7 @@
     transition: opacity 0.5s;
 }
 
-.link_editor_input {
+.lexical_editor_link_editor_input {
     display: block;
     width: 75%  ;
     box-sizing: border-box;
@@ -35,7 +35,7 @@
     font-family: inherit;
 }
 
-.link_editor_button {
+.lexical_editor_link_editor_button {
     background-size: 16px;
     background-position: center;
     background-repeat: no-repeat;
@@ -51,22 +51,22 @@
     height: 50px;
 }
 
-.link_editor_button:hover {
+.lexical_editor_link_editor_button:hover {
     opacity: .5;
 }
 
-.link_editor_button svg {
+.lexical_editor_link_editor_button svg {
     width: 80%;
     height: 100%;
 }
 
-.link_editor_label_wrapper {
+.lexical_editor_link_editor_label_wrapper {
     margin: 10px;
     display: flex;
     align-items: center;
 }
 
-.link_editor_label {
+.lexical_editor_link_editor_label {
     font-family: Helvetica, Arial, sans-serif;
     margin-left: 5px;
     font-size: 13px;
@@ -74,50 +74,11 @@
     padding: 5px 0;
 }
 
-.link_editor_edit {
+.lexical_editor_link_editor_edit {
     right: 34px;
 }
 
-.link_editor_remove {
+.lexical_editor_link_editor_remove {
     right: 6px;
 }
 
-.link-editor .link-input a {
-    color: rgb(33, 111, 219);
-    text-decoration: none;
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    margin-right: 30px;
-    text-overflow: ellipsis;
-}
-
-.link-editor .link-input a:hover {
-    text-decoration: underline;
-}
-
-.link-editor .button {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    padding: 6px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 0 2px;
-}
-
-.link-editor .button.hovered {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    background-color: #eee;
-}
-
-.link-editor .button i,
-.actions i {
-    background-size: contain;
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    vertical-align: -0.25em;
-}

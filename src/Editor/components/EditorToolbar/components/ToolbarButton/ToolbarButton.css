@@ -1,6 +1,6 @@
 @import 'src/Editor/theme/colors.css';
 
-.toolbar_button {
+.lexical_editor_toolbar_button {
     display: inline-flex;
     margin: 0 2px;
     background: none;
@@ -14,20 +14,20 @@
     height: 32px;
 }
 
-.toolbar_button:hover {
+.lexical_editor_toolbar_button:hover {
     background-color: var(--color-hover-grey);
 }
 
-.toolbar_button__active {
+.lexical_editor_toolbar_button__active {
     background-color: var(--color-active-grey);
 }
 
-.toolbar_button__active:hover {
+.lexical_editor_toolbar_button__active:hover {
     background-color: var(--color-active-grey);
     border: 1px solid #7D8C94;
 }
 
-.icon {
+.lexical_editor_toolbar_button_icon {
     display: inline-block;
     width: 24px;
     height: 24px;

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from 'src/Editor/components/EditorToolbar/components/LinkEditor/LinkEditor.css';
+import 'src/Editor/components/EditorToolbar/components/LinkEditor/LinkEditor.css';
 import { Icon } from 'src/Editor/components/Icons/Icon';
 
 interface LinkEditorButtonProps {
@@ -15,7 +15,7 @@ export const LinkEditorButton = ({
   className,
 }: LinkEditorButtonProps) => (
   <div
-    className={classNames(className, styles.link_editor_button)}
+    className={classNames(className, 'lexical_editor_link_editor_button')}
     role="button"
     tabIndex={0}
     onMouseDown={(event) => event.preventDefault()}

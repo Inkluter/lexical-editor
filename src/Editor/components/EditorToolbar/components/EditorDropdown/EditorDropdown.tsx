@@ -51,27 +51,28 @@ export const EditorDropdown = ({
   );
 
   return (
-    <div className="dropdown_wrapper">
+    <div className="lexical_editor_dropdown_wrapper">
       <button
         ref={buttonRef}
         onClick={() => setIsListVisible(!isListVisible)}
         className={classNames(
-          'dropdown_button',
-          isListVisible && 'dropdown_button__active'
+          'lexical_editor_dropdown_button',
+          isListVisible && 'lexical_editor_dropdown_button__active'
         )}
       >
         {showValue ? activeValue : name}
-        <div className="dropdown_icon">
+        <div className="lexical_editor_dropdown_icon">
           <Icon icon={isListVisible ? 'arrow-up' : 'arrow-down'} />
         </div>
       </button>
       {isListVisible && (
-        <div ref={listRef} className="dropdown_list">
+        <div ref={listRef} className="lexical_editor_dropdown_list">
           {options.map((option) => (
             <div
               className={classNames(
-                'dropdown_option',
-                activeValue === option.value && 'dropdown_option__active'
+                'lexical_editor_dropdown_option',
+                activeValue === option.value &&
+                  'lexical_editor_dropdown_option__active'
               )}
               onClick={() => handleClick(option.value as string)}
               key={option.value}

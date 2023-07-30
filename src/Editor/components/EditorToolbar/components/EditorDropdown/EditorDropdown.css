@@ -1,11 +1,11 @@
 @import 'src/Editor/theme/colors.css';
 
-.dropdown_wrapper {
+.lexical_editor_dropdown_wrapper {
     display: inline-block;
     position: relative;
 }
 
-.dropdown_button {
+.lexical_editor_dropdown_button {
     display: inline-flex;
     margin: 0 4px;
     background: none;
@@ -18,19 +18,19 @@
     font-size: 15px;
 }
 
-.dropdown_button:hover {
+.lexical_editor_dropdown_button:hover {
     background-color: var(--color-hover-grey);
 }
 
-.dropdown_button__active {
+.lexical_editor_dropdown_button__active {
     background-color: var(--color-hover-grey);
 }
 
-.dropdown_button__active:hover {
+.lexical_editor_dropdown_button__active:hover {
     border: 1px solid var(--color-active-hover-grey);
 }
 
-.dropdown_icon {
+.lexical_editor_dropdown_icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -39,7 +39,7 @@
     margin-left: 8px;
 }
 
-.dropdown_list {
+.lexical_editor_dropdown_list {
     position: absolute;
     top: 100%;
     background-color: #fff;
@@ -53,7 +53,7 @@
     transform: translateX(-50%);
 }
 
-.dropdown_option {
+.lexical_editor_dropdown_option {
     font-size: 14px;
     display: block;
     width: 100%;
@@ -64,10 +64,10 @@
     cursor: pointer;
 }
 
-.dropdown_option__active {
+.lexical_editor_dropdown_option__active {
     background-color: var(--color-hover-grey);
 }
 
-.dropdown_option:hover {
+.lexical_editor_dropdown_option:hover {
     background-color: var(--color-hover-grey);
 }

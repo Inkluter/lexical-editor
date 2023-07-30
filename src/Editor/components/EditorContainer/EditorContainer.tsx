@@ -8,9 +8,9 @@ import './EditorContainer.css';
 
 const EditorContainer = () => {
   return (
-    <div className="container">
+    <div className="lexical_editor_container">
       <RichTextPlugin
-        contentEditable={<ContentEditable className="content" />}
+        contentEditable={<ContentEditable className="lexical_editor_content" />}
         placeholder={EditorPlaceholder}
         ErrorBoundary={LexicalErrorBoundary}
       />

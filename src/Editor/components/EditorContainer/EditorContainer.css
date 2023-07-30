@@ -1,8 +1,8 @@
-.container {
+.lexical_editor_container {
     position: relative;
 }
 
-.content {
+.lexical_editor_content {
     height: 300px;
     position: relative;
     text-align: left;
@@ -10,6 +10,6 @@
     overflow: auto;
 }
 
-.content:focus-visible {
+.lexical_editor_content:focus-visible {
     outline: none;
 }

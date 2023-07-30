@@ -1,6 +1,6 @@
 @import 'src/Editor/theme/colors.css';
 
-.toolbar {
+.lexical_editor_toolbar {
     padding: 0.2rem;
     border-bottom: 1px solid var(--color-border-grey);
     display: flex;

@@ -51,8 +51,8 @@ const ToolbarButton = ({ toolbarItem, active, onClick }: ToolbarItemType) => {
   return (
     <button
       className={classNames(
-        'toolbar_button',
-        active && 'toolbar_button__active'
+        'lexical_editor_toolbar_button',
+        active && 'lexical_editor_toolbar_button__active'
       )}
       onClick={() => onClick(toolbarItem)}
     >
