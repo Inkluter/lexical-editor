@@ -16,6 +16,9 @@ import {
   FORMAT_TEXT_COMMAND,
   TextFormatType,
   $createParagraphNode,
+  CAN_UNDO_COMMAND,
+  CAN_REDO_COMMAND,
+  COMMAND_PRIORITY_CRITICAL,
 } from 'lexical';
 import {
   $setBlocksType_experimental,
@@ -44,11 +47,11 @@ import { $isCodeNode, getDefaultCodeLanguage } from '@lexical/code';
 import { getSelectedNode } from 'src/Editor/utils/getSelectedNode';
 import { EditorDropdown } from 'src/Editor/components/EditorToolbar/components/EditorDropdown/EditorDropdown';
 import { Icon } from 'src/Editor/components/Icons/Icon';
-import { ToolbarItem } from 'src/Editor/constants/enums';
 
 import ToolbarButton from './components/ToolbarButton/ToolbarButton';
 import { LinkEditor } from './components/LinkEditor/LinkEditor';
 import { ToolbarDivider } from './components/ToolbarDivider/ToolbarDivider';
+import { UndoRedo } from './components/UndoRedo/UndoRedo';
 
 import './EditorToolbar.css';
 
@@ -67,6 +70,8 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
   const [blockType, setBlockType] = useState('paragraph');
   const [selectedElementKey, setSelectedElementKey] = useState(null);
   const [codeLanguage, setCodeLanguage] = useState('');
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -128,7 +133,23 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
         editorState.read(() => {
           updateToolbar();
         });
-      })
+      }),
+      editor.registerCommand(
+        CAN_UNDO_COMMAND,
+        (payload) => {
+          setCanUndo(payload);
+          return false;
+        },
+        COMMAND_PRIORITY_CRITICAL
+      ),
+      editor.registerCommand(
+        CAN_REDO_COMMAND,
+        (payload) => {
+          setCanRedo(payload);
+          return false;
+        },
+        COMMAND_PRIORITY_CRITICAL
+      )
     );
   }, [editor, updateToolbar]);
 
@@ -266,6 +287,7 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
 
   return (
     <div className="lexical_editor_toolbar">
+      <UndoRedo canUndo={canUndo} canRedo={canRedo} />
       <EditorDropdown
         name="Type"
         options={DEFAULT_BLOCK_TYPE_OPTIONS}

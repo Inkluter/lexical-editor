@@ -27,6 +27,11 @@
     border: 1px solid #7D8C94;
 }
 
+.lexical_editor_toolbar_button:disabled {
+    opacity: .5;
+    cursor: default;
+}
+
 .lexical_editor_toolbar_button_icon {
     display: inline-block;
     width: 24px;

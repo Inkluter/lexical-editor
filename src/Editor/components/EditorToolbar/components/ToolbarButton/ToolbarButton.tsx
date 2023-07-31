@@ -10,6 +10,7 @@ interface ToolbarItemType {
     command: string
   ) => void;
   icon: React.ReactNode;
+  disabled?: boolean;
 }
 
 const ToolbarButton = ({
@@ -17,6 +18,7 @@ const ToolbarButton = ({
   active,
   onClick,
   icon,
+  disabled,
 }: ToolbarItemType) => {
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -32,6 +34,7 @@ const ToolbarButton = ({
         active && 'lexical_editor_toolbar_button__active'
       )}
       onClick={(e) => handleClick(e, toolbarItem)}
+      disabled={disabled}
     >
       {icon}
     </button>
