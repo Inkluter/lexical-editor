@@ -3,6 +3,6 @@
 .lexical-editor_toolbar_divider {
     border-left: 1px solid var(--color-border-grey);
     height: 20px;
-    margin: 0 4px;
+    margin: 0 2px;
     width: 1px;
 }

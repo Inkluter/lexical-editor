@@ -2,8 +2,12 @@ import React from 'react';
 
 import './EditorPlaceholder.css';
 
-const EditorPlaceholder = () => {
-  return <div className="lexical_editor_placeholder">Enter some text...</div>;
+interface EditorPlaceholderType {
+  placeholder?: string;
+}
+
+const EditorPlaceholder = ({ placeholder }: EditorPlaceholderType) => {
+  return <div className="lexical_editor_placeholder">{placeholder}</div>;
 };
 
 export default EditorPlaceholder;

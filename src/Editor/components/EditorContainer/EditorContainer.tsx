@@ -6,12 +6,20 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import EditorPlaceholder from '../EditorPlaceholder/EditorPlaceholder';
 import './EditorContainer.css';
 
-const EditorContainer = () => {
+interface EditorContainerType {
+  placeholder?: string;
+}
+
+const EditorContainer = ({ placeholder }: EditorContainerType) => {
   return (
     <div className="lexical_editor_container">
       <RichTextPlugin
         contentEditable={<ContentEditable className="lexical_editor_content" />}
-        placeholder={EditorPlaceholder}
+        placeholder={
+          placeholder
+            ? () => <EditorPlaceholder placeholder={placeholder} />
+            : null
+        }
         ErrorBoundary={LexicalErrorBoundary}
       />
     </div>

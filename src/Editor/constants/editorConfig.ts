@@ -6,7 +6,6 @@ export const DEFAULT_CONFIG = [
   'superscript',
   'subscript',
   'code',
-  'quote',
 ];
 
 export const DEFAULT_FONT_SIZE_OPTIONS = [
@@ -48,4 +47,22 @@ export const DEFAULT_TEXT_ALIGN_OPTIONS = [
   { label: 'Justify', value: 'justify' },
 ];
 
-export const DEFAULT_BLOCK_TYPE_OPTIONS = [{ label: 'Quote', value: 'quote' }];
+export const DEFAULT_BLOCK_TYPE_OPTIONS = [
+  { label: 'Quote', value: 'quote' },
+  { label: 'Normal', value: 'paragraph' },
+  { label: 'Heading 1', value: 'h1' },
+  { label: 'Heading 2', value: 'h2' },
+  { label: 'Heading 3', value: 'h3' },
+];
+
+export enum BLOCK_TYPE {
+  code = 'Code Block',
+  h1 = 'Heading 1',
+  h2 = 'Heading 2',
+  h3 = 'Heading 3',
+  h4 = 'Heading 4',
+  h5 = 'Heading 5',
+  h6 = 'Heading 6',
+  paragraph = 'Normal',
+  quote = 'Quote',
+}

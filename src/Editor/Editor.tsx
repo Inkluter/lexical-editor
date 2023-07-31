@@ -17,19 +17,23 @@ import './Editor.css';
 
 interface EditorType {
   initialValue?: string;
+  placeholder?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onChange?: () => void;
 }
 
 function onError(error: Error) {
   console.error(error);
 }
 
-function Editor({ initialValue }: EditorType) {
+function Editor({ initialValue, placeholder }: EditorType) {
   const editorWrapperRef = useRef(null);
   const initialConfig = {
     namespace: 'MyEditor',
     theme,
     onError,
-    nodes: [ListNode, ListItemNode, LinkNode, QuoteNode],
+    nodes: [ListNode, ListItemNode, LinkNode, QuoteNode, HeadingNode],
   };
 
   useEffect(() => {}, []);
@@ -38,7 +42,7 @@ function Editor({ initialValue }: EditorType) {
     <div ref={editorWrapperRef} className="lexical_editor_wrapper">
       <LexicalComposer initialConfig={initialConfig}>
         <EditorToolbar editorWrapperRef={editorWrapperRef} />
-        <EditorContainer />
+        <EditorContainer placeholder={placeholder} />
         <TabIndentationPlugin />
         <HistoryPlugin />
         <ListPlugin />

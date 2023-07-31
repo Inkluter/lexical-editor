@@ -7,9 +7,9 @@
 
 .lexical_editor_dropdown_button {
     display: inline-flex;
-    margin: 0 4px;
+    margin: 0 2px;
     background: none;
-    padding: 8px 12px;
+    padding: 8px 8px;
     border-radius: 4px;
     cursor: pointer;
     justify-content: center;
@@ -49,19 +49,25 @@
     z-index: 3;
     max-height: 250px;
     overflow-y: auto;
-    left: 50%;
-    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.lexical_editor_dropdown_list__visible {
+    visibility: visible;
+    opacity: 1;
 }
 
 .lexical_editor_dropdown_option {
     font-size: 14px;
     display: block;
-    width: 100%;
+    /*width: 100%;*/
     padding: 8px 10px;
     border: 0 none;
     background: none;
     text-align: left;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .lexical_editor_dropdown_option__active {

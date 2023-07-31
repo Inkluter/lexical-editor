@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div className="app">
       <h1>Editor playground</h1>
-      <Editor initialValue="sdfsdfsdfdfs" />
+      <Editor initialValue="sdfsdfsdfdfs" placeholder="Enter some text..." />
     </div>
   );
 };

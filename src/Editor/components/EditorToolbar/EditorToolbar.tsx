@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { $generateHtmlFromNodes } from '@lexical/html';
 import {
+  DEFAULT_BLOCK_TYPE_OPTIONS,
   DEFAULT_CONFIG,
   DEFAULT_FONT_FAMILY_OPTIONS,
   DEFAULT_FONT_SIZE_OPTIONS,
@@ -14,7 +15,17 @@ import {
   FORMAT_ELEMENT_COMMAND,
   FORMAT_TEXT_COMMAND,
   TextFormatType,
+  $createParagraphNode,
 } from 'lexical';
+import {
+  $setBlocksType_experimental,
+  $patchStyleText,
+} from '@lexical/selection';
+import {
+  $createQuoteNode,
+  $createHeadingNode,
+  HeadingTagType,
+} from '@lexical/rich-text';
 import {
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
@@ -32,10 +43,13 @@ import { $isHeadingNode } from '@lexical/rich-text';
 import { $isCodeNode, getDefaultCodeLanguage } from '@lexical/code';
 import { getSelectedNode } from 'src/Editor/utils/getSelectedNode';
 import { EditorDropdown } from 'src/Editor/components/EditorToolbar/components/EditorDropdown/EditorDropdown';
+import { Icon } from 'src/Editor/components/Icons/Icon';
+import { ToolbarItem } from 'src/Editor/constants/enums';
 
 import ToolbarButton from './components/ToolbarButton/ToolbarButton';
 import { LinkEditor } from './components/LinkEditor/LinkEditor';
 import { ToolbarDivider } from './components/ToolbarDivider/ToolbarDivider';
+
 import './EditorToolbar.css';
 
 interface EditorToolbarProps {
@@ -119,8 +133,8 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
   }, [editor, updateToolbar]);
 
   const handleFormatTextClick = useCallback(
-    (command: TextFormatType) => {
-      editor.dispatchCommand(FORMAT_TEXT_COMMAND, command);
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, command: string) => {
+      editor.dispatchCommand(FORMAT_TEXT_COMMAND, command as TextFormatType);
     },
     [editor]
   );
@@ -133,11 +147,91 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
   }, [editor]);
 
   const handleFormatElementClick = useCallback(
-    (command: ElementFormatType) => {
+    (
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+      command: ElementFormatType
+    ) => {
       editor.dispatchCommand(
         FORMAT_ELEMENT_COMMAND,
         command as ElementFormatType
       );
+    },
+    [editor]
+  );
+
+  const handleFontSizeDropdownClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>, option: string) => {
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          $patchStyleText(selection, {
+            ['font-size']: option,
+          });
+        }
+      });
+    },
+    [editor]
+  );
+
+  const formatHeading = (headingSize: string) => {
+    if (blockType !== headingSize) {
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          $setBlocksType_experimental(selection, () =>
+            $createHeadingNode(headingSize as HeadingTagType)
+          );
+        }
+      });
+    }
+  };
+
+  const formatParagraph = () => {
+    if (blockType !== 'paragraph') {
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection))
+          $setBlocksType_experimental(selection, () => $createParagraphNode());
+      });
+    }
+  };
+
+  const formatQuote = () => {
+    if (blockType !== 'quote') {
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          $setBlocksType_experimental(selection, () => $createQuoteNode());
+        }
+      });
+    }
+  };
+
+  const handleTypeDropdownClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>, option: string) => {
+      if (option === 'h1' || option === 'h2' || option === 'h3') {
+        formatHeading(option);
+      }
+      if (option === 'paragraph') {
+        formatParagraph();
+      }
+      if (option === 'quote') {
+        formatQuote();
+      }
+    },
+    [editor, blockType]
+  );
+
+  const handleFontFamilyDropdownClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>, option: string) => {
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          $patchStyleText(selection, {
+            ['font-family']: option,
+          });
+        }
+      });
     },
     [editor]
   );
@@ -150,7 +244,6 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
       console.log('remove');
     }
-    // setShowBlockOptionsDropDown(false);
   };
 
   const handleFormatUnorderedListClick = () => {
@@ -161,7 +254,6 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
       console.log('remove');
     }
-    // setShowBlockOptionsDropDown(false);
   };
 
   const handleSetLink = useCallback(() => {
@@ -174,21 +266,28 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
 
   return (
     <div className="lexical_editor_toolbar">
+      <EditorDropdown
+        name="Type"
+        options={DEFAULT_BLOCK_TYPE_OPTIONS}
+        onOptionClick={handleTypeDropdownClick}
+      />
+      <ToolbarDivider />
       {DEFAULT_CONFIG.map((toolbarItem) => (
         <ToolbarButton
           key={toolbarItem}
           toolbarItem={toolbarItem}
           active={activeFormats[toolbarItem as keyof ACTIVE_FORMATS_TYPE]}
           onClick={handleFormatTextClick}
+          icon={<Icon icon={toolbarItem} />}
         />
       ))}
       <ToolbarDivider />
       <EditorDropdown
         name="Font size"
         options={DEFAULT_FONT_SIZE_OPTIONS}
-        style="font-size"
         activeValue={fontSize}
         showValue
+        onOptionClick={handleFontSizeDropdownClick}
       />
       <EditorDropdown
         name="Font family"
@@ -196,6 +295,7 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
         style="font-family"
         activeValue={fontFamily}
         showValue
+        onOptionClick={handleFontFamilyDropdownClick}
       />
       <ToolbarDivider />
       {DEFAULT_TEXT_ALIGN_OPTIONS.map((textAlignOption) => (
@@ -204,29 +304,37 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
           toolbarItem={textAlignOption.value}
           onClick={handleFormatElementClick}
           active={textAlignOption.value === textAlign}
+          icon={<Icon icon={textAlignOption.value} />}
         />
       ))}
       <ToolbarDivider />
       <ToolbarButton
         toolbarItem="list-ordered"
         onClick={handleFormatOrderedListClick}
+        icon={<Icon icon="list-ordered" />}
       />
       <ToolbarButton
         toolbarItem="list-unordered"
         onClick={handleFormatUnorderedListClick}
+        icon={<Icon icon="list-unordered" />}
       />
       <ToolbarDivider />
-      <ToolbarButton toolbarItem="link" onClick={handleSetLink} />
+      <ToolbarButton
+        toolbarItem="link"
+        onClick={handleSetLink}
+        icon={<Icon icon="link" />}
+      />
       {isLink &&
         createPortal(
           <LinkEditor editor={editor} editorWrapperRef={editorWrapperRef} />,
           document.body
         )}
-      <ToolbarButton
-        toolbarItem="code"
-        active={false}
-        onClick={handleHtmlClick}
-      />
+      {/*<ToolbarButton*/}
+      {/*  toolbarItem="code"*/}
+      {/*  active={false}*/}
+      {/*  onClick={handleHtmlClick}*/}
+      {/*  icon={<Icon icon="link" />}*/}
+      {/*/>*/}
     </div>
   );
 };

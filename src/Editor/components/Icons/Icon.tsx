@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface Props {
   icon: string;
@@ -6,71 +6,7 @@ interface Props {
   height?: number;
 }
 
-export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
-  const alignCenter = (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-    >
-      <path
-        fill="#000000"
-        fillRule="evenodd"
-        d="M18 5a1 1 0 100-2H2a1 1 0 000 2h16zm-4 4a1 1 0 100-2H6a1 1 0 100 2h8zm5 3a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-5 5a1 1 0 100-2H6a1 1 0 100 2h8z"
-      />
-    </svg>
-  );
-
-  const alignLeft = (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-    >
-      <path
-        fill="#000000"
-        fillRule="evenodd"
-        d="M18 5a1 1 0 100-2H2a1 1 0 000 2h16zm-8 4a1 1 0 100-2H2a1 1 0 100 2h8zm9 3a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-9 5a1 1 0 100-2H2a1 1 0 100 2h8z"
-      />
-    </svg>
-  );
-
-  const alignRight = (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-    >
-      <path
-        fill="#000000"
-        fillRule="evenodd"
-        d="M18 5a1 1 0 100-2H2a1 1 0 000 2h16zm0 4a1 1 0 100-2h-8a1 1 0 100 2h8zm1 3a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 5a1 1 0 100-2h-8a1 1 0 100 2h8z"
-      />
-    </svg>
-  );
-
-  const alignJustify = (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-    >
-      <path
-        fill="#000000"
-        fillRule="evenodd"
-        d="M18 5a1 1 0 100-2H2a1 1 0 000 2h16zm0 4a1 1 0 100-2H2a1 1 0 100 2h16zm1 3a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 5a1 1 0 100-2H2a1 1 0 100 2h16z"
-      />
-    </svg>
-  );
-
+export const Icon = memo(({ icon, width = 18, height = 18 }: Props) => {
   const link = (
     <svg
       width="16"
@@ -361,15 +297,63 @@ export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
     </svg>
   );
 
+  const undo = (
+    <svg
+      width="800px"
+      height="800px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 7H15C17.7614 7 20 9.23857 20 12C20 14.7614 17.7614 17 15 17H8.00001M4 7L7 4M4 7L7 10"
+        stroke="#1C274C"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
+  const redo = (
+    <svg
+      width="800px"
+      height="800px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M20 7H9.00001C6.23858 7 4 9.23857 4 12C4 14.7614 6.23858 17 9 17H16M20 7L17 4M20 7L17 10"
+        stroke="#1C274C"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
+  const superScript = (
+    <span style={{ fontSize: 14, marginTop: 2 }}>
+      X{' '}
+      <span
+        style={{ position: 'relative', bottom: '0.7em', fontSize: '0.7em' }}
+      >
+        2
+      </span>
+    </span>
+  );
+
+  const subScript = (
+    <span style={{ fontSize: 14, marginTop: 2 }}>
+      X{' '}
+      <span style={{ position: 'relative', top: '0.4em', fontSize: '0.7em' }}>
+        2
+      </span>
+    </span>
+  );
+
   switch (icon) {
-    case 'align-center':
-      return alignCenter;
-    case 'align-left':
-      return alignLeft;
-    case 'align-right':
-      return alignRight;
-    case 'align-justify':
-      return alignJustify;
     case 'link':
       return link;
     case 'list-ordered':
@@ -408,7 +392,17 @@ export const Icon = ({ icon, width = 18, height = 18 }: Props) => {
       return code;
     case 'quote':
       return quote;
+    case 'undo':
+      return undo;
+    case 'redo':
+      return redo;
+    case 'superscript':
+      return superScript;
+    case 'subscript':
+      return subScript;
     default:
       return null;
   }
-};
+});
+
+Icon.displayName = 'Icon';
