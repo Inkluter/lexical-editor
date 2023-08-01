@@ -22,6 +22,7 @@ interface EditorDropdownType {
   ) => void;
   style?: string;
   showValue?: boolean;
+  onToolbarButtonClick?: () => void;
 }
 
 export const EditorDropdown = ({
@@ -31,6 +32,7 @@ export const EditorDropdown = ({
   onOptionClick,
   style,
   showValue = false,
+  onToolbarButtonClick,
 }: EditorDropdownType) => {
   const [isListVisible, setIsListVisible] = useState(false);
   const [listWidth, setListWidth] = useState(null);
@@ -51,6 +53,11 @@ export const EditorDropdown = ({
     [onOptionClick, setIsListVisible]
   );
 
+  const handleDropdownButtonClick = () => {
+    onToolbarButtonClick();
+    setIsListVisible(!isListVisible);
+  };
+
   useEffect(() => {
     if (listRef.current) {
       setListWidth((listRef.current.children[0] as HTMLElement).offsetWidth);
@@ -61,7 +68,7 @@ export const EditorDropdown = ({
     <div className="lexical_editor_dropdown_wrapper">
       <button
         ref={buttonRef}
-        onClick={() => setIsListVisible(!isListVisible)}
+        onClick={handleDropdownButtonClick}
         className={clsx(
           'lexical_editor_dropdown_button',
           isListVisible && 'lexical_editor_dropdown_button__active'

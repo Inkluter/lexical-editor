@@ -8,13 +8,24 @@ import { REDO_COMMAND, UNDO_COMMAND } from 'lexical';
 interface UndoRedoType {
   canUndo: boolean;
   canRedo: boolean;
+  onToolbarButtonClick?: () => void;
 }
 
-export const UndoRedo = ({ canUndo, canRedo }: UndoRedoType) => {
+export const UndoRedo = ({
+  canUndo,
+  canRedo,
+  onToolbarButtonClick,
+}: UndoRedoType) => {
   const [editor] = useLexicalComposerContext();
 
-  const handleUndoClick = () => editor.dispatchCommand(UNDO_COMMAND, undefined);
-  const handleRedoClick = () => editor.dispatchCommand(REDO_COMMAND, undefined);
+  const handleUndoClick = () => {
+    onToolbarButtonClick();
+    editor.dispatchCommand(UNDO_COMMAND, undefined);
+  };
+  const handleRedoClick = () => {
+    onToolbarButtonClick();
+    editor.dispatchCommand(REDO_COMMAND, undefined);
+  };
 
   return (
     <>

@@ -28,8 +28,12 @@
 }
 
 .lexical_editor_toolbar_button:disabled {
-    opacity: .5;
+    opacity: .3;
     cursor: default;
+}
+
+.lexical_editor_toolbar_button:disabled:hover {
+    background: none;
 }
 
 .lexical_editor_toolbar_button_icon {

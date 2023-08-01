@@ -57,9 +57,13 @@ import './EditorToolbar.css';
 
 interface EditorToolbarProps {
   editorWrapperRef: React.RefObject<HTMLDivElement>;
+  onToolbarButtonClick: () => void;
 }
 
-const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
+const EditorToolbar = ({
+  editorWrapperRef,
+  onToolbarButtonClick,
+}: EditorToolbarProps) => {
   const [editor] = useLexicalComposerContext();
   const [activeFormats, setActiveFormats] =
     useState<ACTIVE_FORMATS_TYPE>(ACTIVE_FORMATS);
@@ -287,11 +291,16 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
 
   return (
     <div className="lexical_editor_toolbar">
-      <UndoRedo canUndo={canUndo} canRedo={canRedo} />
+      <UndoRedo
+        onToolbarButtonClick={onToolbarButtonClick}
+        canUndo={canUndo}
+        canRedo={canRedo}
+      />
       <EditorDropdown
         name="Type"
         options={DEFAULT_BLOCK_TYPE_OPTIONS}
         onOptionClick={handleTypeDropdownClick}
+        onToolbarButtonClick={onToolbarButtonClick}
       />
       <ToolbarDivider />
       {DEFAULT_CONFIG.map((toolbarItem) => (
@@ -301,6 +310,7 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
           active={activeFormats[toolbarItem as keyof ACTIVE_FORMATS_TYPE]}
           onClick={handleFormatTextClick}
           icon={<Icon icon={toolbarItem} />}
+          onToolbarButtonClick={onToolbarButtonClick}
         />
       ))}
       <ToolbarDivider />
@@ -310,6 +320,7 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
         activeValue={fontSize}
         showValue
         onOptionClick={handleFontSizeDropdownClick}
+        onToolbarButtonClick={onToolbarButtonClick}
       />
       <EditorDropdown
         name="Font family"
@@ -318,6 +329,7 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
         activeValue={fontFamily}
         showValue
         onOptionClick={handleFontFamilyDropdownClick}
+        onToolbarButtonClick={onToolbarButtonClick}
       />
       <ToolbarDivider />
       {DEFAULT_TEXT_ALIGN_OPTIONS.map((textAlignOption) => (
@@ -327,6 +339,7 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
           onClick={handleFormatElementClick}
           active={textAlignOption.value === textAlign}
           icon={<Icon icon={textAlignOption.value} />}
+          onToolbarButtonClick={onToolbarButtonClick}
         />
       ))}
       <ToolbarDivider />
@@ -334,17 +347,20 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
         toolbarItem="list-ordered"
         onClick={handleFormatOrderedListClick}
         icon={<Icon icon="list-ordered" />}
+        onToolbarButtonClick={onToolbarButtonClick}
       />
       <ToolbarButton
         toolbarItem="list-unordered"
         onClick={handleFormatUnorderedListClick}
         icon={<Icon icon="list-unordered" />}
+        onToolbarButtonClick={onToolbarButtonClick}
       />
       <ToolbarDivider />
       <ToolbarButton
         toolbarItem="link"
         onClick={handleSetLink}
         icon={<Icon icon="link" />}
+        onToolbarButtonClick={onToolbarButtonClick}
       />
       {isLink &&
         createPortal(

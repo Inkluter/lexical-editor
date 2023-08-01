@@ -8,8 +8,12 @@ const App = () => {
     <div className="app">
       <h1>Editor playground</h1>
       <Editor
-        initialValue="sdfsdfsdfdfs sdfdsf sdfsdf fffff sssddf  fdfddf  fdfdfdfdfdf  fdfdfd fdf sdfsdfsdfdfs sdfdsf sdfsdf fffff sssddf  fdfddf  fdfdfdfdfdf  fdfdfd fdf sdfsdfsdfdfs sdfdsf sdfsdf"
+        initialValue="sdfsdfsdfdfs sdfdsf sdfsdf"
         placeholder="Enter some text..."
+        onFocus={() => console.log('focus')}
+        onBlur={() => console.log('blur')}
+        onChange={() => console.log('change')}
+        onToolbarButtonClick={() => console.log('toolbar button click')}
       />
     </div>
   );

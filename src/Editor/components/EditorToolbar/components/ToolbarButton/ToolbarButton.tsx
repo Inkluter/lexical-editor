@@ -11,6 +11,7 @@ interface ToolbarItemType {
   ) => void;
   icon: React.ReactNode;
   disabled?: boolean;
+  onToolbarButtonClick?: () => void;
 }
 
 const ToolbarButton = ({
@@ -19,12 +20,14 @@ const ToolbarButton = ({
   onClick,
   icon,
   disabled,
+  onToolbarButtonClick,
 }: ToolbarItemType) => {
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     toolbarItem: string
   ) => {
     onClick(event, toolbarItem);
+    onToolbarButtonClick();
   };
 
   return (
