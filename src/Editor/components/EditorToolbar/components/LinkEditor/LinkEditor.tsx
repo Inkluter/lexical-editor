@@ -16,21 +16,32 @@ import './LinkEditor.css';
 const LowPriority = 1;
 
 function positionEditorElement(
-  editor: HTMLElement,
+  linkEditor: HTMLElement,
   rect: DOMRect | null,
   editorWrapperRef: React.RefObject<HTMLDivElement> | null
 ) {
   if (rect === null) {
-    editor.style.opacity = '0';
-    editor.style.top = '-1000px';
-    editor.style.left = '-1000px';
+    linkEditor.style.opacity = '0';
+    linkEditor.style.top = '-1000px';
+    linkEditor.style.left = '-1000px';
   } else {
     const editorWrapper = editorWrapperRef.current;
     const editorRect = editorWrapper.getBoundingClientRect();
+    const linkEditorRect = linkEditor.getBoundingClientRect();
 
-    editor.style.opacity = '1';
-    editor.style.top = `${rect.top + rect.height + window.pageYOffset + 10}px`;
-    editor.style.left = `${rect.left}px`;
+    let left = `${rect.left}px`;
+
+    const editorRight = editorRect.left + editorRect.width;
+
+    if (rect.left + linkEditorRect.width > editorRight) {
+      left = `${rect.right - linkEditorRect.width}px`;
+    }
+
+    linkEditor.style.opacity = '1';
+    linkEditor.style.top = `${
+      rect.top + rect.height + window.pageYOffset + 10
+    }px`;
+    linkEditor.style.left = left;
   }
 }
 
@@ -40,7 +51,7 @@ interface LinkEditorProps {
 }
 
 export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
-  const editorRef = useRef(null);
+  const linkEditorRef = useRef(null);
   const inputRef = useRef(null);
   const mouseDownRef = useRef(false);
   const [linkUrl, setLinkUrl] = useState('');
@@ -63,11 +74,11 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
         setLinkUrl('');
       }
     }
-    const editorElem = editorRef.current;
+    const linkEditorElem = linkEditorRef.current;
     const nativeSelection = window.getSelection();
     const activeElement = document.activeElement;
 
-    if (editorElem === null) {
+    if (linkEditorElem === null) {
       return;
     }
 
@@ -91,11 +102,11 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
       }
 
       if (!mouseDownRef.current) {
-        positionEditorElement(editorElem, rect, editorWrapperRef);
+        positionEditorElement(linkEditorElem, rect, editorWrapperRef);
       }
       setLastSelection(selection);
     } else if (!activeElement || activeElement.className !== 'link-input') {
-      positionEditorElement(editorElem, null, null);
+      positionEditorElement(linkEditorElem, null, null);
       setLastSelection(null);
       setEditMode(false);
       setLinkUrl('');
@@ -164,7 +175,7 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
   }, [isEditMode]);
 
   return (
-    <div ref={editorRef} className="lexical_editor_link_editor">
+    <div ref={linkEditorRef} className="lexical_editor_link_editor">
       {isEditMode ? (
         <div className="lexical_editor_link_editor_mode_wrapper">
           <input
@@ -230,7 +241,10 @@ export function LinkEditor({ editor, editorWrapperRef }: LinkEditorProps) {
               onChange={handleTargetCheckboxClick}
               checked={isTargetBlank}
             />
-            <label className="lexical_editor_link_editor_label" htmlFor={checkboxId}>
+            <label
+              className="lexical_editor_link_editor_label"
+              htmlFor={checkboxId}
+            >
               Open link in new window
             </label>
           </div>
