@@ -122,7 +122,7 @@ const EditorToolbar = ({ editorWrapperRef }: EditorToolbarProps) => {
       setFontFamily(
         $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial')
       );
-      const alignment = selection.anchor.getNode().getParent().getFormatType();
+      const alignment = selection.anchor.getNode().getParent()?.getFormatType();
       setTextAlign(alignment);
     }
   }, [editor]);
