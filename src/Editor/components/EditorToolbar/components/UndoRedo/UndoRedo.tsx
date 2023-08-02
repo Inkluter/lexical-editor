@@ -19,11 +19,11 @@ export const UndoRedo = ({
   const [editor] = useLexicalComposerContext();
 
   const handleUndoClick = () => {
-    onToolbarButtonClick();
+    // onToolbarButtonClick && onToolbarButtonClick();
     editor.dispatchCommand(UNDO_COMMAND, undefined);
   };
   const handleRedoClick = () => {
-    onToolbarButtonClick();
+    // onToolbarButtonClick && onToolbarButtonClick();
     editor.dispatchCommand(REDO_COMMAND, undefined);
   };
 

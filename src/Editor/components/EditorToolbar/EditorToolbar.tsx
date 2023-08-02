@@ -1,13 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { $generateHtmlFromNodes } from '@lexical/html';
-import {
-  DEFAULT_BLOCK_TYPE_OPTIONS,
-  DEFAULT_INLINE_CONFIG,
-  DEFAULT_FONT_FAMILY_OPTIONS,
-  DEFAULT_FONT_SIZE_OPTIONS,
-  DEFAULT_TEXT_ALIGN_OPTIONS,
-} from 'src/Editor/constants/editorConfig';
+import { ToolbarOverflow } from 'src/Editor/constants/editorConfig';
+import clsx from 'clsx';
 import {
   $getSelection,
   $isRangeSelection,
@@ -60,7 +54,7 @@ import './EditorToolbar.css';
 
 interface EditorToolbarProps {
   editorWrapperRef: React.RefObject<HTMLDivElement>;
-  onToolbarButtonClick: () => void;
+  onToolbarButtonClick?: () => void;
   toolbarConfig?: ToolbarConfig;
 }
 
@@ -168,13 +162,6 @@ const EditorToolbar = ({
     },
     [editor]
   );
-
-  const handleHtmlClick = useCallback(() => {
-    editor.update(() => {
-      const htmlString = $generateHtmlFromNodes(editor, null);
-      console.log(htmlString);
-    });
-  }, [editor]);
 
   const handleFormatElementClick = useCallback(
     (
@@ -298,7 +285,7 @@ const EditorToolbar = ({
     <div className="lexical_editor_toolbar">
       {toolbarConfig.undoRedo.display && (
         <UndoRedo
-          onToolbarButtonClick={onToolbarButtonClick}
+          // onToolbarButtonClick={onToolbarButtonClick}
           canUndo={canUndo}
           canRedo={canRedo}
         />
@@ -398,12 +385,6 @@ const EditorToolbar = ({
           <LinkEditor editor={editor} editorWrapperRef={editorWrapperRef} />,
           document.body
         )}
-      {/*<ToolbarButton*/}
-      {/*  toolbarItem="code"*/}
-      {/*  active={false}*/}
-      {/*  onClick={handleHtmlClick}*/}
-      {/*  icon={<Icon icon="link" />}*/}
-      {/*/>*/}
     </div>
   );
 };

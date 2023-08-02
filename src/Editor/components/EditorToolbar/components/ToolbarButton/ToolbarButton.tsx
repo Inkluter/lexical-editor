@@ -27,7 +27,7 @@ const ToolbarButton = ({
     toolbarItem: string
   ) => {
     onClick(event, toolbarItem);
-    onToolbarButtonClick();
+    onToolbarButtonClick && onToolbarButtonClick();
   };
 
   return (

@@ -100,3 +100,5 @@ export const DEFAULT_TOOLBAR_CONFIG: ToolbarConfig = {
     display: true,
   },
 };
+
+export type ToolbarOverflow = 'scroll' | 'show';

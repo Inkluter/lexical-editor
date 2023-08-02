@@ -7,7 +7,7 @@ interface InitialValuePluginType {
   initialValue?: string;
 }
 
-export const InitialValuePlugin = ({
+export const InitialString = ({
   initialValue,
 }: InitialValuePluginType): null => {
   const [editor] = useLexicalComposerContext();
