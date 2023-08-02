@@ -9,22 +9,26 @@ import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import { LinkNode } from '@lexical/link';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { LexicalEditor } from 'lexical';
+import { ToolbarConfig } from 'src/Editor/constants/models';
+import { DEFAULT_TOOLBAR_CONFIG } from 'src/Editor/constants/editorConfig';
 
 import EditorContainer from './components/EditorContainer/EditorContainer';
 import EditorToolbar from './components/EditorToolbar/EditorToolbar';
 import { InitialValuePlugin } from './plugins/InitialValuePlugin';
 import { LayoutPlugin } from './plugins/LayoutPlugin';
 import { theme } from './theme/theme';
+
 import './theme/theme.css';
 import './Editor.css';
 
 interface EditorType {
   initialValue?: string;
   placeholder?: string;
-  onFocus?: (editor: LexicalEditor) => void;
-  onBlur?: (editor: LexicalEditor) => void;
+  onFocus?: (event: Event, editor: LexicalEditor) => void;
+  onBlur?: (event: Event, editor: LexicalEditor) => void;
   onChange?: () => void;
   onToolbarButtonClick?: () => void;
+  toolbarConfig?: ToolbarConfig;
 }
 
 function onError(error: Error) {
@@ -38,6 +42,7 @@ function Editor({
   onBlur,
   onChange,
   onToolbarButtonClick,
+  toolbarConfig = DEFAULT_TOOLBAR_CONFIG,
 }: EditorType) {
   const editorWrapperRef = useRef(null);
   const initialConfig = {
@@ -53,6 +58,7 @@ function Editor({
         <EditorToolbar
           onToolbarButtonClick={onToolbarButtonClick}
           editorWrapperRef={editorWrapperRef}
+          toolbarConfig={toolbarConfig}
         />
         <EditorContainer placeholder={placeholder} />
         <TabIndentationPlugin />

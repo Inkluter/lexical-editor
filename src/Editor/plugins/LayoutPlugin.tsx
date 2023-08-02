@@ -9,8 +9,8 @@ import {
 import { mergeRegister } from '@lexical/utils';
 
 interface LayoutPluginType {
-  onFocus?: (editor: LexicalEditor) => void;
-  onBlur?: (editor: LexicalEditor) => void;
+  onFocus?: (event: Event, editor: LexicalEditor) => void;
+  onBlur?: (event: Event, editor: LexicalEditor) => void;
 }
 
 export const LayoutPlugin = ({ onFocus, onBlur }: LayoutPluginType): null => {
@@ -25,8 +25,8 @@ export const LayoutPlugin = ({ onFocus, onBlur }: LayoutPluginType): null => {
       mergeRegister(
         editor.registerCommand(
           FOCUS_COMMAND,
-          () => {
-            onFocus(editor);
+          (event, editor) => {
+            onFocus(event, editor);
             return false;
           },
           COMMAND_PRIORITY_CRITICAL
@@ -37,7 +37,7 @@ export const LayoutPlugin = ({ onFocus, onBlur }: LayoutPluginType): null => {
       mergeRegister(
         editor.registerCommand(
           BLUR_COMMAND,
-          () => {
+          (event, editor) => {
             onBlur(editor);
             return false;
           },

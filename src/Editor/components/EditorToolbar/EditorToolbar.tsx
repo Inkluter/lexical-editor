@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { $generateHtmlFromNodes } from '@lexical/html';
 import {
   DEFAULT_BLOCK_TYPE_OPTIONS,
-  DEFAULT_CONFIG,
+  DEFAULT_INLINE_CONFIG,
   DEFAULT_FONT_FAMILY_OPTIONS,
   DEFAULT_FONT_SIZE_OPTIONS,
   DEFAULT_TEXT_ALIGN_OPTIONS,
@@ -40,7 +40,10 @@ import { $getSelectionStyleValueForProperty } from '@lexical/selection';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { mergeRegister, $getNearestNodeOfType } from '@lexical/utils';
 import { ACTIVE_FORMATS } from 'src/Editor/constants/objects';
-import { ACTIVE_FORMATS_TYPE } from 'src/Editor/constants/models';
+import {
+  ACTIVE_FORMATS_TYPE,
+  ToolbarConfig,
+} from 'src/Editor/constants/models';
 import { TOGGLE_LINK_COMMAND, $isLinkNode } from '@lexical/link';
 import { $isHeadingNode } from '@lexical/rich-text';
 import { $isCodeNode, getDefaultCodeLanguage } from '@lexical/code';
@@ -58,11 +61,13 @@ import './EditorToolbar.css';
 interface EditorToolbarProps {
   editorWrapperRef: React.RefObject<HTMLDivElement>;
   onToolbarButtonClick: () => void;
+  toolbarConfig?: ToolbarConfig;
 }
 
 const EditorToolbar = ({
   editorWrapperRef,
   onToolbarButtonClick,
+  toolbarConfig,
 }: EditorToolbarProps) => {
   const [editor] = useLexicalComposerContext();
   const [activeFormats, setActiveFormats] =
@@ -291,77 +296,103 @@ const EditorToolbar = ({
 
   return (
     <div className="lexical_editor_toolbar">
-      <UndoRedo
-        onToolbarButtonClick={onToolbarButtonClick}
-        canUndo={canUndo}
-        canRedo={canRedo}
-      />
-      <EditorDropdown
-        name="Type"
-        options={DEFAULT_BLOCK_TYPE_OPTIONS}
-        onOptionClick={handleTypeDropdownClick}
-        onToolbarButtonClick={onToolbarButtonClick}
-      />
-      <ToolbarDivider />
-      {DEFAULT_CONFIG.map((toolbarItem) => (
-        <ToolbarButton
-          key={toolbarItem}
-          toolbarItem={toolbarItem}
-          active={activeFormats[toolbarItem as keyof ACTIVE_FORMATS_TYPE]}
-          onClick={handleFormatTextClick}
-          icon={<Icon icon={toolbarItem} />}
+      {toolbarConfig.undoRedo.display && (
+        <UndoRedo
+          onToolbarButtonClick={onToolbarButtonClick}
+          canUndo={canUndo}
+          canRedo={canRedo}
+        />
+      )}
+      {toolbarConfig.type.display && (
+        <>
+          <EditorDropdown
+            name="Type"
+            options={toolbarConfig?.type.options}
+            onOptionClick={handleTypeDropdownClick}
+            onToolbarButtonClick={onToolbarButtonClick}
+          />
+          <ToolbarDivider />
+        </>
+      )}
+      {toolbarConfig.inline.display && (
+        <>
+          {toolbarConfig.inline.options.map((toolbarItem) => (
+            <ToolbarButton
+              key={toolbarItem}
+              toolbarItem={toolbarItem}
+              active={activeFormats[toolbarItem as keyof ACTIVE_FORMATS_TYPE]}
+              onClick={handleFormatTextClick}
+              icon={<Icon icon={toolbarItem} />}
+              onToolbarButtonClick={onToolbarButtonClick}
+            />
+          ))}
+          <ToolbarDivider />
+        </>
+      )}
+      {toolbarConfig.fontSize.display && (
+        <EditorDropdown
+          name="Font size"
+          options={toolbarConfig.fontSize.options}
+          activeValue={fontSize}
+          showValue
+          onOptionClick={handleFontSizeDropdownClick}
           onToolbarButtonClick={onToolbarButtonClick}
         />
-      ))}
-      <ToolbarDivider />
-      <EditorDropdown
-        name="Font size"
-        options={DEFAULT_FONT_SIZE_OPTIONS}
-        activeValue={fontSize}
-        showValue
-        onOptionClick={handleFontSizeDropdownClick}
-        onToolbarButtonClick={onToolbarButtonClick}
-      />
-      <EditorDropdown
-        name="Font family"
-        options={DEFAULT_FONT_FAMILY_OPTIONS}
-        style="font-family"
-        activeValue={fontFamily}
-        showValue
-        onOptionClick={handleFontFamilyDropdownClick}
-        onToolbarButtonClick={onToolbarButtonClick}
-      />
-      <ToolbarDivider />
-      {DEFAULT_TEXT_ALIGN_OPTIONS.map((textAlignOption) => (
-        <ToolbarButton
-          key={textAlignOption.value}
-          toolbarItem={textAlignOption.value}
-          onClick={handleFormatElementClick}
-          active={textAlignOption.value === textAlign}
-          icon={<Icon icon={textAlignOption.value} />}
+      )}
+      {toolbarConfig.fontFamily.display && (
+        <EditorDropdown
+          name="Font family"
+          options={toolbarConfig.fontFamily.options}
+          style="font-family"
+          activeValue={fontFamily}
+          showValue
+          onOptionClick={handleFontFamilyDropdownClick}
           onToolbarButtonClick={onToolbarButtonClick}
         />
-      ))}
-      <ToolbarDivider />
-      <ToolbarButton
-        toolbarItem="list-ordered"
-        onClick={handleFormatOrderedListClick}
-        icon={<Icon icon="list-ordered" />}
-        onToolbarButtonClick={onToolbarButtonClick}
-      />
-      <ToolbarButton
-        toolbarItem="list-unordered"
-        onClick={handleFormatUnorderedListClick}
-        icon={<Icon icon="list-unordered" />}
-        onToolbarButtonClick={onToolbarButtonClick}
-      />
-      <ToolbarDivider />
-      <ToolbarButton
-        toolbarItem="link"
-        onClick={handleSetLink}
-        icon={<Icon icon="link" />}
-        onToolbarButtonClick={onToolbarButtonClick}
-      />
+      )}
+      {(toolbarConfig.fontSize.display || toolbarConfig.fontFamily.display) && (
+        <ToolbarDivider />
+      )}
+      {toolbarConfig.align.display && (
+        <>
+          {toolbarConfig.align.options.map((textAlignOption) => (
+            <ToolbarButton
+              key={textAlignOption.value}
+              toolbarItem={textAlignOption.value as string}
+              onClick={handleFormatElementClick}
+              active={textAlignOption.value === textAlign}
+              icon={<Icon icon={textAlignOption.value as string} />}
+              onToolbarButtonClick={onToolbarButtonClick}
+            />
+          ))}
+          <ToolbarDivider />
+        </>
+      )}
+      {toolbarConfig.list.display && (
+        <>
+          <ToolbarButton
+            toolbarItem="list-ordered"
+            onClick={handleFormatOrderedListClick}
+            icon={<Icon icon="list-ordered" />}
+            onToolbarButtonClick={onToolbarButtonClick}
+          />
+          <ToolbarButton
+            toolbarItem="list-unordered"
+            onClick={handleFormatUnorderedListClick}
+            icon={<Icon icon="list-unordered" />}
+            onToolbarButtonClick={onToolbarButtonClick}
+          />
+          <ToolbarDivider />
+        </>
+      )}
+      {toolbarConfig.link.display && (
+        <ToolbarButton
+          toolbarItem="link"
+          onClick={handleSetLink}
+          icon={<Icon icon="link" />}
+          onToolbarButtonClick={onToolbarButtonClick}
+        />
+      )}
       {isLink &&
         createPortal(
           <LinkEditor editor={editor} editorWrapperRef={editorWrapperRef} />,

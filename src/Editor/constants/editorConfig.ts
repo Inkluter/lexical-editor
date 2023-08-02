@@ -1,4 +1,6 @@
-export const DEFAULT_CONFIG = [
+import { ToolbarConfig } from 'src/Editor/constants/models';
+
+export const DEFAULT_INLINE_CONFIG = [
   'bold',
   'italic',
   'underline',
@@ -66,3 +68,35 @@ export enum BLOCK_TYPE {
   paragraph = 'Normal',
   quote = 'Quote',
 }
+
+export const DEFAULT_TOOLBAR_CONFIG: ToolbarConfig = {
+  inline: {
+    display: true,
+    options: DEFAULT_INLINE_CONFIG,
+  },
+  type: {
+    display: true,
+    options: DEFAULT_BLOCK_TYPE_OPTIONS,
+  },
+  fontSize: {
+    display: true,
+    options: DEFAULT_FONT_SIZE_OPTIONS,
+  },
+  undoRedo: {
+    display: true,
+  },
+  fontFamily: {
+    display: true,
+    options: DEFAULT_FONT_FAMILY_OPTIONS,
+  },
+  align: {
+    display: true,
+    options: DEFAULT_TEXT_ALIGN_OPTIONS,
+  },
+  list: {
+    display: true,
+  },
+  link: {
+    display: true,
+  },
+};
