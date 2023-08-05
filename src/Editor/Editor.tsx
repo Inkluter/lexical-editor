@@ -14,6 +14,7 @@ import { DEFAULT_TOOLBAR_CONFIG } from 'src/Editor/constants/editorConfig';
 import { InitialHtml } from 'src/Editor/plugins/InitialHtml';
 import { InitialString } from 'src/Editor/plugins/InitialString';
 
+import ToolbarButton from './components/EditorToolbar/components/ToolbarButton/ToolbarButton';
 import EditorContainer from './components/EditorContainer/EditorContainer';
 import EditorToolbar from './components/EditorToolbar/EditorToolbar';
 import { LayoutPlugin } from './plugins/LayoutPlugin';
@@ -92,3 +93,5 @@ function Editor({
 }
 
 export default Editor;
+
+export { ToolbarButton };

@@ -1,9 +1,18 @@
 @import 'src/Editor/theme/colors.css';
 
 .lexical_editor_toolbar {
-    padding: 0.2rem;
     border-bottom: 1px solid var(--color-border-grey);
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-radius: 6px 6px 0 0;
+    z-index: 2;
+    overflow-x: auto;
+}
+
+.lexical_editor_toolbar_container {
+    height: 100%;
     display: flex;
     align-items: center;
-    overflow-x: auto;
+    padding: 0.2rem;
 }

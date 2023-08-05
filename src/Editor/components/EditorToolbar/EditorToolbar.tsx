@@ -283,108 +283,109 @@ const EditorToolbar = ({
 
   return (
     <div className="lexical_editor_toolbar">
-      {toolbarConfig.undoRedo.display && (
-        <UndoRedo
-          // onToolbarButtonClick={onToolbarButtonClick}
-          canUndo={canUndo}
-          canRedo={canRedo}
-        />
-      )}
-      {toolbarConfig.type.display && (
-        <>
-          <EditorDropdown
-            name="Type"
-            options={toolbarConfig?.type.options}
-            onOptionClick={handleTypeDropdownClick}
-            onToolbarButtonClick={onToolbarButtonClick}
+      <div className="lexical_editor_toolbar_container">
+        {toolbarConfig.undoRedo.display && (
+          <UndoRedo
+            // onToolbarButtonClick={onToolbarButtonClick}
+            canUndo={canUndo}
+            canRedo={canRedo}
           />
-          <ToolbarDivider />
-        </>
-      )}
-      {toolbarConfig.inline.display && (
-        <>
-          {toolbarConfig.inline.options.map((toolbarItem) => (
-            <ToolbarButton
-              key={toolbarItem}
-              toolbarItem={toolbarItem}
-              active={activeFormats[toolbarItem as keyof ACTIVE_FORMATS_TYPE]}
-              onClick={handleFormatTextClick}
-              icon={<Icon icon={toolbarItem} />}
-              onToolbarButtonClick={onToolbarButtonClick}
-            />
-          ))}
-          <ToolbarDivider />
-        </>
-      )}
-      {toolbarConfig.fontSize.display && (
-        <EditorDropdown
-          name="Font size"
-          options={toolbarConfig.fontSize.options}
-          activeValue={fontSize}
-          showValue
-          onOptionClick={handleFontSizeDropdownClick}
-          onToolbarButtonClick={onToolbarButtonClick}
-        />
-      )}
-      {toolbarConfig.fontFamily.display && (
-        <EditorDropdown
-          name="Font family"
-          options={toolbarConfig.fontFamily.options}
-          style="font-family"
-          activeValue={fontFamily}
-          showValue
-          onOptionClick={handleFontFamilyDropdownClick}
-          onToolbarButtonClick={onToolbarButtonClick}
-        />
-      )}
-      {(toolbarConfig.fontSize.display || toolbarConfig.fontFamily.display) && (
-        <ToolbarDivider />
-      )}
-      {toolbarConfig.align.display && (
-        <>
-          {toolbarConfig.align.options.map((textAlignOption) => (
-            <ToolbarButton
-              key={textAlignOption.value}
-              toolbarItem={textAlignOption.value as string}
-              onClick={handleFormatElementClick}
-              active={textAlignOption.value === textAlign}
-              icon={<Icon icon={textAlignOption.value as string} />}
-              onToolbarButtonClick={onToolbarButtonClick}
-            />
-          ))}
-          <ToolbarDivider />
-        </>
-      )}
-      {toolbarConfig.list.display && (
-        <>
-          <ToolbarButton
-            toolbarItem="list-ordered"
-            onClick={handleFormatOrderedListClick}
-            icon={<Icon icon="list-ordered" />}
-            onToolbarButtonClick={onToolbarButtonClick}
-          />
-          <ToolbarButton
-            toolbarItem="list-unordered"
-            onClick={handleFormatUnorderedListClick}
-            icon={<Icon icon="list-unordered" />}
-            onToolbarButtonClick={onToolbarButtonClick}
-          />
-          <ToolbarDivider />
-        </>
-      )}
-      {toolbarConfig.link.display && (
-        <ToolbarButton
-          toolbarItem="link"
-          onClick={handleSetLink}
-          icon={<Icon icon="link" />}
-          onToolbarButtonClick={onToolbarButtonClick}
-        />
-      )}
-      {isLink &&
-        createPortal(
-          <LinkEditor editor={editor} editorWrapperRef={editorWrapperRef} />,
-          document.body
         )}
+        {toolbarConfig.type.display && (
+          <>
+            <EditorDropdown
+              name="Type"
+              options={toolbarConfig?.type.options}
+              onOptionClick={handleTypeDropdownClick}
+              onToolbarButtonClick={onToolbarButtonClick}
+            />
+            <ToolbarDivider />
+          </>
+        )}
+        {toolbarConfig.inline.display && (
+          <>
+            {toolbarConfig.inline.options.map((toolbarItem) => (
+              <ToolbarButton
+                key={toolbarItem}
+                toolbarItem={toolbarItem}
+                active={activeFormats[toolbarItem as keyof ACTIVE_FORMATS_TYPE]}
+                onClick={handleFormatTextClick}
+                icon={<Icon icon={toolbarItem} />}
+                onToolbarButtonClick={onToolbarButtonClick}
+              />
+            ))}
+            <ToolbarDivider />
+          </>
+        )}
+        {toolbarConfig.fontSize.display && (
+          <EditorDropdown
+            name="Font size"
+            options={toolbarConfig.fontSize.options}
+            activeValue={fontSize}
+            showValue
+            onOptionClick={handleFontSizeDropdownClick}
+            onToolbarButtonClick={onToolbarButtonClick}
+          />
+        )}
+        {toolbarConfig.fontFamily.display && (
+          <EditorDropdown
+            name="Font family"
+            options={toolbarConfig.fontFamily.options}
+            style="font-family"
+            activeValue={fontFamily}
+            showValue
+            onOptionClick={handleFontFamilyDropdownClick}
+            onToolbarButtonClick={onToolbarButtonClick}
+          />
+        )}
+        {(toolbarConfig.fontSize.display ||
+          toolbarConfig.fontFamily.display) && <ToolbarDivider />}
+        {toolbarConfig.align.display && (
+          <>
+            {toolbarConfig.align.options.map((textAlignOption) => (
+              <ToolbarButton
+                key={textAlignOption.value}
+                toolbarItem={textAlignOption.value as string}
+                onClick={handleFormatElementClick}
+                active={textAlignOption.value === textAlign}
+                icon={<Icon icon={textAlignOption.value as string} />}
+                onToolbarButtonClick={onToolbarButtonClick}
+              />
+            ))}
+            <ToolbarDivider />
+          </>
+        )}
+        {toolbarConfig.list.display && (
+          <>
+            <ToolbarButton
+              toolbarItem="list-ordered"
+              onClick={handleFormatOrderedListClick}
+              icon={<Icon icon="list-ordered" />}
+              onToolbarButtonClick={onToolbarButtonClick}
+            />
+            <ToolbarButton
+              toolbarItem="list-unordered"
+              onClick={handleFormatUnorderedListClick}
+              icon={<Icon icon="list-unordered" />}
+              onToolbarButtonClick={onToolbarButtonClick}
+            />
+            <ToolbarDivider />
+          </>
+        )}
+        {toolbarConfig.link.display && (
+          <ToolbarButton
+            toolbarItem="link"
+            onClick={handleSetLink}
+            icon={<Icon icon="link" />}
+            onToolbarButtonClick={onToolbarButtonClick}
+          />
+        )}
+        {isLink &&
+          createPortal(
+            <LinkEditor editor={editor} editorWrapperRef={editorWrapperRef} />,
+            document.body
+          )}
+      </div>
     </div>
   );
 };

@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
 import { $generateHtmlFromNodes } from '@lexical/html';
-import { $generateNodesFromDOM } from '@lexical/html';
 
-import Editor from './Editor/Editor';
-import { DEFAULT_TOOLBAR_CONFIG } from './Editor/constants/editorConfig';
+import Editor from '../Editor/Editor';
+import { DEFAULT_TOOLBAR_CONFIG } from '../Editor/constants/editorConfig';
 import './App.css';
 
 const str =
@@ -13,8 +12,6 @@ const App = () => {
   const editorRef = useRef(null);
 
   const handleShowHtml = () => {
-    // console.log(editorRef.current.getEditorState());
-
     editorRef.current.update(() => {
       const htmlString = $generateHtmlFromNodes(editorRef.current, null);
       console.log(htmlString);

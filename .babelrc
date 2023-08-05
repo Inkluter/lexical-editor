@@ -14,7 +14,7 @@
         "root": ["./src"],
         "alias": {
           "root": ".",
-          "src": "/src"
+          "src": "./src"
         }
       }
     ]

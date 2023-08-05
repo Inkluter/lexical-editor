@@ -3,11 +3,16 @@
 }
 
 .lexical_editor_content {
-    height: 300px;
     position: relative;
     text-align: left;
     padding: 1rem;
     overflow: auto;
+    resize: both;
+    min-height: 200px;
+    max-height: 800px;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
 }
 
 .lexical_editor_content:focus-visible {
