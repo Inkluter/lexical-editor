@@ -42,13 +42,13 @@
     width: 26px;
     vertical-align: -0.25em;
     position: absolute;
-    top: 0;
+    top: 6px;
     bottom: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    height: 36px;
 }
 
 .lexical_editor_link_editor_button:hover {
