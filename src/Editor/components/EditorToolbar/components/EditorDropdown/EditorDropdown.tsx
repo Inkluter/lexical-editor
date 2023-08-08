@@ -5,6 +5,7 @@ import React, {
   useEffect,
   CSSProperties,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { useOnClickOutside } from 'src/Editor/hooks/useOnClickOutside';
 import clsx from 'clsx';
 import { Icon } from 'src/Editor/components/Icons/Icon';
@@ -22,7 +23,9 @@ interface EditorDropdownType {
   ) => void;
   style?: string;
   showValue?: boolean;
-  onToolbarButtonClick?: () => void;
+  onToolbarButtonClick?: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
 }
 
 export const EditorDropdown = ({
@@ -35,7 +38,7 @@ export const EditorDropdown = ({
   onToolbarButtonClick,
 }: EditorDropdownType) => {
   const [isListVisible, setIsListVisible] = useState(false);
-  const [listWidth, setListWidth] = useState(null);
+  const [listPosition, setListPosition] = useState(null);
   const listRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const isFontFamily = style === 'font-family';
@@ -53,22 +56,29 @@ export const EditorDropdown = ({
     [onOptionClick, setIsListVisible]
   );
 
-  const handleDropdownButtonClick = () => {
-    onToolbarButtonClick();
+  const handleDropdownButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    onToolbarButtonClick(event);
     setIsListVisible(!isListVisible);
   };
 
   useEffect(() => {
-    if (listRef.current) {
-      setListWidth((listRef.current.children[0] as HTMLElement).offsetWidth);
+    if (buttonRef.current) {
+      const buttonRect = buttonRef.current.getBoundingClientRect();
+
+      setListPosition({
+        x: buttonRect.x,
+        y: buttonRect.y,
+      });
     }
-  }, [listRef]);
+  }, [buttonRef]);
 
   return (
     <div className="lexical_editor_dropdown_wrapper">
       <button
         ref={buttonRef}
-        onClick={handleDropdownButtonClick}
+        onClick={(e) => handleDropdownButtonClick(e)}
         className={clsx(
           'lexical_editor_dropdown_button',
           isListVisible && 'lexical_editor_dropdown_button__active'
@@ -80,41 +90,39 @@ export const EditorDropdown = ({
         </div>
       </button>
 
-      <div
-        ref={listRef}
-        className={clsx(
-          'lexical_editor_dropdown_list',
-          isListVisible && 'lexical_editor_dropdown_list__visible'
-        )}
-        style={
-          listWidth
-            ? {
-                width: listWidth,
-              }
-            : {}
-        }
-      >
-        {options.map((option) => (
+      {isListVisible &&
+        createPortal(
           <div
-            className={clsx(
-              'lexical_editor_dropdown_option',
-              activeValue === option.value &&
-                'lexical_editor_dropdown_option__active'
-            )}
-            onClick={(event) => handleClick(event, option.value as string)}
-            key={option.value}
-            style={
-              isFontFamily
-                ? {
-                    fontFamily: option.value as CSSProperties['fontFamily'],
-                  }
-                : {}
-            }
+            ref={listRef}
+            className={clsx('lexical_editor_dropdown_list')}
+            style={{
+              left: listPosition.x,
+              top: listPosition.y,
+            }}
           >
-            {option.label}
-          </div>
-        ))}
-      </div>
+            {options.map((option) => (
+              <div
+                className={clsx(
+                  'lexical_editor_dropdown_option',
+                  activeValue === option.value &&
+                    'lexical_editor_dropdown_option__active'
+                )}
+                onClick={(event) => handleClick(event, option.value as string)}
+                key={option.value}
+                style={
+                  isFontFamily
+                    ? {
+                        fontFamily: option.value as CSSProperties['fontFamily'],
+                      }
+                    : {}
+                }
+              >
+                {option.label}
+              </div>
+            ))}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };

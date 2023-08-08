@@ -49,8 +49,6 @@
     z-index: 3;
     max-height: 250px;
     overflow-y: auto;
-    visibility: hidden;
-    opacity: 0;
 }
 
 .lexical_editor_dropdown_list__visible {
