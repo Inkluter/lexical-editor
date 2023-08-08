@@ -26,6 +26,7 @@ interface EditorDropdownType {
   onToolbarButtonClick?: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
+  toolbarRef?: React.RefObject<HTMLDivElement>;
 }
 
 export const EditorDropdown = ({
@@ -36,6 +37,7 @@ export const EditorDropdown = ({
   style,
   showValue = false,
   onToolbarButtonClick,
+  toolbarRef,
 }: EditorDropdownType) => {
   const [isListVisible, setIsListVisible] = useState(false);
   const [listPosition, setListPosition] = useState(null);
@@ -69,10 +71,30 @@ export const EditorDropdown = ({
 
       setListPosition({
         x: buttonRect.x,
-        y: buttonRect.y,
+        y: buttonRect.y + buttonRect.height,
       });
     }
   }, [buttonRef]);
+
+  useEffect(() => {
+    const toolbarScrollHandler = () => {
+      setIsListVisible(false);
+
+      const buttonRect = buttonRef.current.getBoundingClientRect();
+
+      setListPosition({
+        x: buttonRect.x,
+        y: buttonRect.y + buttonRect.height,
+      });
+    };
+
+    if (toolbarRef.current) {
+      toolbarRef.current.addEventListener('scroll', toolbarScrollHandler);
+    }
+
+    return () =>
+      toolbarRef.current.removeEventListener('scroll', toolbarScrollHandler);
+  }, [toolbarRef]);
 
   return (
     <div className="lexical_editor_dropdown_wrapper">

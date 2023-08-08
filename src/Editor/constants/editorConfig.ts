@@ -50,8 +50,8 @@ export const DEFAULT_TEXT_ALIGN_OPTIONS = [
 ];
 
 export const DEFAULT_BLOCK_TYPE_OPTIONS = [
-  { label: 'Quote', value: 'quote' },
   { label: 'Normal', value: 'paragraph' },
+  { label: 'Quote', value: 'quote' },
   { label: 'Heading 1', value: 'h1' },
   { label: 'Heading 2', value: 'h2' },
   { label: 'Heading 3', value: 'h3' },

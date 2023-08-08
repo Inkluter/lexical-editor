@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { ToolbarOverflow } from 'src/Editor/constants/editorConfig';
 import clsx from 'clsx';
@@ -75,6 +75,7 @@ const EditorToolbar = ({
   const [codeLanguage, setCodeLanguage] = useState('');
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
+  const toolbarRef = useRef(null);
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -256,20 +257,16 @@ const EditorToolbar = ({
   const handleFormatOrderedListClick = () => {
     if (blockType !== 'ol') {
       editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
-      console.log('insert');
     } else {
       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
-      console.log('remove');
     }
   };
 
   const handleFormatUnorderedListClick = () => {
     if (blockType !== 'ul') {
       editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
-      console.log('insert');
     } else {
       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
-      console.log('remove');
     }
   };
 
@@ -282,7 +279,7 @@ const EditorToolbar = ({
   }, [editor, isLink]);
 
   return (
-    <div className="lexical_editor_toolbar">
+    <div className="lexical_editor_toolbar" ref={toolbarRef}>
       {toolbarConfig.undoRedo.display && (
         <UndoRedo
           // onToolbarButtonClick={onToolbarButtonClick}
@@ -297,6 +294,7 @@ const EditorToolbar = ({
             options={toolbarConfig?.type.options}
             onOptionClick={handleTypeDropdownClick}
             onToolbarButtonClick={onToolbarButtonClick}
+            toolbarRef={toolbarRef}
           />
           <ToolbarDivider />
         </>
@@ -324,6 +322,7 @@ const EditorToolbar = ({
           showValue
           onOptionClick={handleFontSizeDropdownClick}
           onToolbarButtonClick={onToolbarButtonClick}
+          toolbarRef={toolbarRef}
         />
       )}
       {toolbarConfig.fontFamily.display && (
@@ -335,6 +334,7 @@ const EditorToolbar = ({
           showValue
           onOptionClick={handleFontFamilyDropdownClick}
           onToolbarButtonClick={onToolbarButtonClick}
+          toolbarRef={toolbarRef}
         />
       )}
       {(toolbarConfig.fontSize.display || toolbarConfig.fontFamily.display) && (
