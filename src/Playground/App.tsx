@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
 import { $generateHtmlFromNodes } from '@lexical/html';
 
+import { Test } from './Test';
 import Editor from '../Editor/Editor';
 import { DEFAULT_TOOLBAR_CONFIG } from '../Editor/constants/editorConfig';
 import './App.css';
 
 const str =
-  '<p class="lexical_editor__paragraph" dir="ltr"><b><strong class="lexical_editor__text_bold">sdfsdfsdfdfs</strong></b></p>';
+  '<p class="lexical_editor__paragraph" dir="ltr"><b><strong class="lexical_editor__text_bold">bold</strong></b></p>';
 
 const App = () => {
   const editorRef = useRef(null);
@@ -33,6 +34,8 @@ const App = () => {
           type: 'html',
           value: str,
         }}
+        customToolbar={<Test />}
+        plugins={<Test />}
       />
       <div style={{ padding: 10 }}>
         <button onClick={handleShowHtml}>show html</button>

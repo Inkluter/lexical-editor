@@ -8,7 +8,7 @@ interface LoadInitialContentTypes {
 }
 
 export const InitialHtml = ({
-                              initialValue,
+  initialValue,
 }: LoadInitialContentTypes): null => {
   const [editor] = useLexicalComposerContext();
 
@@ -20,7 +20,6 @@ export const InitialHtml = ({
       const parser = new DOMParser();
       const dom = parser.parseFromString(initialValue, 'text/html');
       const nodes = $generateNodesFromDOM(editor, dom);
-      console.log(dom, nodes);
       const paragraphNode = $createParagraphNode();
       nodes.forEach((n) => paragraphNode.append(n));
       $getRoot().append(paragraphNode);

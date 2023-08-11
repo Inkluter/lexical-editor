@@ -3,14 +3,14 @@ import React, {
   useRef,
   useCallback,
   useEffect,
+  useLayoutEffect,
   CSSProperties,
 } from 'react';
 import { createPortal } from 'react-dom';
 import { useOnClickOutside } from 'src/Editor/hooks/useOnClickOutside';
 import clsx from 'clsx';
 import { Icon } from 'src/Editor/components/Icons/Icon';
-
-import { Option } from '../../../../constants/models';
+import { Option } from 'src/Editor/constants/models';
 import './EditorDropdown.css';
 
 interface EditorDropdownType {
@@ -65,7 +65,7 @@ export const EditorDropdown = ({
     setIsListVisible(!isListVisible);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (buttonRef.current) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
 

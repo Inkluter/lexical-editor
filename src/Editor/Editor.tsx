@@ -36,6 +36,8 @@ interface EditorType {
     type: 'html' | 'string';
     value: string;
   };
+  customToolbar?: React.JSX.Element;
+  plugins?: React.JSX.Element;
 }
 
 function onError(error: Error) {
@@ -52,6 +54,8 @@ function Editor({
   editorRef,
   editorState,
   initialString,
+  customToolbar,
+  plugins,
 }: EditorType) {
   const editorWrapperRef = useRef(null);
   const initialConfig = {
@@ -69,6 +73,7 @@ function Editor({
           onToolbarButtonClick={onToolbarButtonClick}
           editorWrapperRef={editorWrapperRef}
           toolbarConfig={toolbarConfig}
+          customToolbar={customToolbar}
         />
         <EditorContainer placeholder={placeholder} />
         <TabIndentationPlugin />
@@ -87,6 +92,7 @@ function Editor({
         {initialString && initialString.type === 'string' && (
           <InitialString initialValue={initialString.value} />
         )}
+        {plugins && plugins}
       </LexicalComposer>
     </div>
   );

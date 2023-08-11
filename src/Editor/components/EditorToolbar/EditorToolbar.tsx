@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { ToolbarOverflow } from 'src/Editor/constants/editorConfig';
-import clsx from 'clsx';
 import {
   $getSelection,
   $isRangeSelection,
@@ -56,12 +54,14 @@ interface EditorToolbarProps {
   editorWrapperRef: React.RefObject<HTMLDivElement>;
   onToolbarButtonClick?: () => void;
   toolbarConfig?: ToolbarConfig;
+  customToolbar?: React.JSX.Element;
 }
 
 const EditorToolbar = ({
   editorWrapperRef,
   onToolbarButtonClick,
   toolbarConfig,
+  customToolbar,
 }: EditorToolbarProps) => {
   const [editor] = useLexicalComposerContext();
   const [activeFormats, setActiveFormats] =
@@ -385,6 +385,7 @@ const EditorToolbar = ({
           <LinkEditor editor={editor} editorWrapperRef={editorWrapperRef} />,
           document.body
         )}
+      {customToolbar && customToolbar}
     </div>
   );
 };
