@@ -50,7 +50,7 @@ export const EditorDropdown = ({
     setIsListVisible(false);
   });
 
-  const handleClick = useCallback(
+  const handleOptionClick = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent>, option: string) => {
       onOptionClick(event, option);
       setIsListVisible(false);
@@ -58,35 +58,23 @@ export const EditorDropdown = ({
     [onOptionClick, setIsListVisible]
   );
 
-  const handleDropdownButtonClick = (
+  const handleDropdownButtonClick = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     onToolbarButtonClick(event);
+
+    const buttonRect = buttonRef.current.getBoundingClientRect();
+
+    await setListPosition({
+      x: buttonRect.x,
+      y: buttonRect.y + buttonRect.height + window.scrollY,
+    });
+
     setIsListVisible(!isListVisible);
   };
 
-  useLayoutEffect(() => {
-    if (buttonRef.current) {
-      const buttonRect = buttonRef.current.getBoundingClientRect();
-
-      setListPosition({
-        x: buttonRect.x,
-        y: buttonRect.y + buttonRect.height,
-      });
-    }
-  }, [buttonRef]);
-
   useEffect(() => {
-    const toolbarScrollHandler = () => {
-      setIsListVisible(false);
-
-      const buttonRect = buttonRef.current.getBoundingClientRect();
-
-      setListPosition({
-        x: buttonRect.x,
-        y: buttonRect.y + buttonRect.height,
-      });
-    };
+    const toolbarScrollHandler = () => setIsListVisible(false);
 
     if (toolbarRef.current) {
       toolbarRef.current.addEventListener('scroll', toolbarScrollHandler);
@@ -129,7 +117,9 @@ export const EditorDropdown = ({
                   activeValue === option.value &&
                     'lexical_editor_dropdown_option__active'
                 )}
-                onClick={(event) => handleClick(event, option.value as string)}
+                onClick={(event) =>
+                  handleOptionClick(event, option.value as string)
+                }
                 key={option.value}
                 style={
                   isFontFamily
