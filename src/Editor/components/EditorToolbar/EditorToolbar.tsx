@@ -279,7 +279,11 @@ const EditorToolbar = ({
   }, [editor, isLink]);
 
   return (
-    <div className="lexical_editor_toolbar" ref={toolbarRef}>
+    <div
+      className="lexical_editor_toolbar"
+      id="lexical_editor_toolbar"
+      ref={toolbarRef}
+    >
       {toolbarConfig.undoRedo.display && (
         <UndoRedo
           // onToolbarButtonClick={onToolbarButtonClick}

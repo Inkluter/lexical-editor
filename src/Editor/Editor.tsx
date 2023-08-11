@@ -67,7 +67,11 @@ function Editor({
   };
 
   return (
-    <div ref={editorWrapperRef} className="lexical_editor_wrapper">
+    <div
+      ref={editorWrapperRef}
+      className="lexical_editor_wrapper"
+      id="lexical_editor_wrapper"
+    >
       <LexicalComposer initialConfig={initialConfig}>
         <EditorToolbar
           onToolbarButtonClick={onToolbarButtonClick}

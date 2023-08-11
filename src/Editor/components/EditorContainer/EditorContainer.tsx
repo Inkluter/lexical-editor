@@ -14,7 +14,12 @@ const EditorContainer = ({ placeholder }: EditorContainerType) => {
   return (
     <div className="lexical_editor_container">
       <RichTextPlugin
-        contentEditable={<ContentEditable className="lexical_editor_content" />}
+        contentEditable={
+          <ContentEditable
+            className="lexical_editor_content"
+            id="lexical_editor_content"
+          />
+        }
         placeholder={
           placeholder
             ? () => <EditorPlaceholder placeholder={placeholder} />
