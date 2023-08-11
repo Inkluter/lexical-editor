@@ -32,7 +32,7 @@ interface EditorType {
   onToolbarButtonClick?: () => void;
   toolbarConfig?: ToolbarConfig;
   editorRef?: MutableRefObject<LexicalEditor | null>;
-  initialString: {
+  initialString?: {
     type: 'html' | 'string';
     value: string;
   };
